@@ -9,3 +9,4 @@ script:
    - cd _builds
    - cmake ..
    - make
+   - ./Game
