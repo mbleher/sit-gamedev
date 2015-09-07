@@ -9,6 +9,17 @@ This project is achieved as part of a Stevens Institute of Technology course, In
 - Compiling:  g++ v4.8.2
 - Testing:    Google Test & Travis CI
 
+# Build and Run Instructions
+
+## Build
+To build the application, run the following commands at the top level
+- `cmake .`
+- `make`
+
+## Run
+Once the application has been successfully built, run the following command at the top level
+- `./Game`
+
 # Coding Standard
 
 All of the .cpp and .h files will be written following a strict guideline, in order to have a readable, consistent and easy to maintain code.
