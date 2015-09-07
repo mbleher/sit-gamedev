@@ -1,10 +1,15 @@
 // game.m.cpp
 
-#include <iostream>
+#include <gtest/gtest.h>
 
-int main()
+TEST(Test, EQ)
+{
+  ASSERT_EQ( 2, 1 + 1 );
+}
+
+int main( int argc, char **argv )
 {
   /* FIXME: Add unit tests */
-  std::cout << "Simulation ran successfully." << std::endl;
-  return 0;
+  testing::InitGoogleTest( &argc, argv );
+  return RUN_ALL_TESTS();
 }
