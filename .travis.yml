@@ -1,8 +1,8 @@
 language:
-	- cpp
+   - cpp
 
 script:
-	- mkdir _builds
-	- cd _builds
-	- cmake ..
-	- make
+   - mkdir _builds
+   - cd _builds
+   - cmake ..
+   - make
