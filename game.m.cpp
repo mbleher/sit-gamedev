@@ -2,9 +2,15 @@
 
 #include <gtest/gtest.h>
 
-TEST(Test, EQ)
+TEST( Trivial, EQ )
 {
   ASSERT_EQ( 2, 1 + 1 );
+  ASSERT_EQ( 4, 2 * 2 );
+}
+
+TEST( Trivial, NE )
+{
+  ASSERT_NE( 2, 3 );
 }
 
 int main( int argc, char **argv )
