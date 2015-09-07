@@ -16,6 +16,13 @@ To build the application, run the following commands at the top level
 - `cmake .`
 - `make`
 
+In order to keep top level clean, you can alternatively run the following commands
+- `mkdir _builds`
+- `cd _builds`
+- `cmake ..`
+- `make`
+- `mv Game ../`
+
 ## Run
 Once the application has been successfully built, run the following command at the top level
 - `./Game`
