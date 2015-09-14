@@ -11,11 +11,9 @@ namespace sgdm
 template<typename T>
 class IAllocator
 {
-public:
+  public:
   virtual T* get( int count ) = 0;
-    // FIXME: Add function's use and expected behaviour
   virtual void release( T*, int count ) = 0;
-    // FIXME: Add function's use and expected behaviour
 };
 
 } // End sgdm namespace

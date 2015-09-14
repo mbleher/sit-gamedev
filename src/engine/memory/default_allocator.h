@@ -12,7 +12,7 @@ namespace sgdm
 template<typename T>
 class DefaultAllocator : public IAllocator<T>
 {
-public:
+  public:
   // CONSTRUCTORS
   DefaultAllocator();
     // Default constructor
@@ -24,9 +24,9 @@ public:
 
   // MEMBER FUNCTIONS
   T* get( int count );
-    // Returns an array of <count> T
+    // Returns an array of <count> T.
   void release( T* ptr, int count );
-    // Frees <count> T starting from memory location <ptr>
+    // Frees <count> T starting from memory location <ptr>.
 };
 
 
@@ -67,9 +67,10 @@ template<typename T>
 inline
 void DefaultAllocator<T>::release( T* ptr, int count )
 {
-  for( int i = 0; i < count && (ptr + i != 0); ++i )
+  for( int i = 0; i < count && (ptr + i != 0); ++i, ++ptr )
   {
     delete ptr;
+    ptr = 0;
   }
 }
 

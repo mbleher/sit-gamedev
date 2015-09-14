@@ -3,7 +3,10 @@
 #ifndef INCLUDED_DYNAMICARRAY
 # define INCLUDED_DYNAMICARRAY
 
+#define INIT_ARRAY_SIZE 10
+
 #include "../memory/iallocator.h"
+#include <stdexcept>
 
 namespace StevensDev
 {
@@ -12,12 +15,15 @@ namespace sgdc
 template<typename T>
 class DynamicArray
 {
-private:
+  private:
   sgdm::IAllocator<T>* d_alloc;
   T* d_array;
   unsigned int d_length;
+  unsigned int d_size;
 
-public:
+  void doubleArraySize();
+  
+  public:
   // CONSTRUCTORS
   DynamicArray( sgdm::IAllocator<T>* alloc );
     // Constructor with an allocator for use with memory
@@ -48,13 +54,33 @@ public:
     // Inserts an element at a location
 };
 
+// PRIVATE MEMBER FUNCTIONS
+
+template<typename T>
+inline
+void DynamicArray<T>::doubleArraySize()
+{
+  T* newArray;
+
+  unsigned int newSize = d_size * 2;
+  d_size = newSize;
+  newArray = d_alloc->get( d_size );
+  for ( unsigned int i = 0; i < d_length; ++i)
+  {
+    newArray[i] = d_array[i];
+  }
+  //d_alloc->release( d_array, d_length );
+  d_array = newArray;
+}
+
 // CONSTRUCTORS
 
 template<typename T>
 inline
 DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
-  : d_alloc( alloc )
+  : d_alloc( alloc ), d_length( 0 ), d_size( INIT_ARRAY_SIZE )
 {
+  d_array = alloc->get( INIT_ARRAY_SIZE );
 }
 
 
@@ -64,6 +90,8 @@ template<typename T>
 inline
 DynamicArray<T>::~DynamicArray()
 {
+//  d_alloc->release( d_array, d_length );
+  delete [] d_array;
 }
 
 
@@ -83,45 +111,93 @@ template<typename T>
 inline
 void DynamicArray<T>::push( const T& element )
 {
+  if( d_length == d_size )
+  {
+    doubleArraySize();
+  }
+  d_array[d_length++] = element;
 }
 
 template<typename T>
 inline
 void DynamicArray<T>::pushFront( const T& element )
 {
+  if( d_length == d_size )
+  {
+    doubleArraySize();
+  }
+  for (unsigned int i = d_length++; i > 0; --i)
+  {
+    d_array[i] = d_array[i - 1];
+  }
+  d_array[0] = element;
 }
 
 template<typename T>
 inline
 T DynamicArray<T>::pop()
 {
-  return 0;
+  T elem;
+
+  elem = d_array[--d_length];
+  d_array[d_length] = 0;
+  return elem;
 }
 
 template<typename T>
 inline
 T DynamicArray<T>::popFront()
 {
-  return 0;
+  T elem;
+
+  elem = d_array[0];
+  for (unsigned int i = 0; i < d_length; ++i)
+  {
+    d_array[i] = d_array[i + 1];
+  }
+  d_array[d_length--] = 0;
+  return elem;
 }
 
 template<typename T>
 inline
 T DynamicArray<T>::at( unsigned int index ) const
 {
-  return 0;
+  if( index >= d_length )
+  {
+    throw std::out_of_range( "index out of range" );
+  }
+  return d_array[index];
 }
 
 template<typename T>
 inline
 void DynamicArray<T>::removeAt( unsigned int index )
 {
+  if( index >= d_length )
+  {
+    throw std::out_of_range( "index out of range" );
+  }
+  d_array[index] = 0;
 }
 
 template<typename T>
 inline
 void DynamicArray<T>::insertAt( unsigned int index, const T& element )
 {
+  if( index >= d_length )
+  {
+    throw std::out_of_range( "index out of range" );
+  }
+  if( d_length == d_size )
+  {
+    doubleArraySize();
+  }
+  for (unsigned int i = d_length++; i > index; --i)
+  {
+    d_array[i] = d_array[i - 1];
+  }
+  d_array[index] = element;
 }
 
 } // End sgdc namespace

@@ -13,13 +13,13 @@ namespace sgdm
 template<typename T>
 class CountingAllocator : public DefaultAllocator<T>
 {
-private:
+  private:
   int d_allocationCount;
   int d_releaseCount;
   static int d_totalAllocationCount;
   static int d_totalReleaseCount;
 
-public:
+  public:
   // CONSTRUCTORS
   CountingAllocator();
     // Default constructor
@@ -42,9 +42,9 @@ public:
 
   // MEMBER FUNCTIONS
   T* get( int count );
-    // FIXME
-  void release( T* pointer, int count );
-    // FIXME
+    // Returns an array of <count> T.
+  void release( T* ptr, int count );
+    // Frees <count> T starting from <ptr>.
     
 };
 
