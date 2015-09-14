@@ -21,14 +21,16 @@ public:
 
   // DESTRUCTOR
   ~DefaultAllocator();
-  
+
+  // MEMBER FUNCTIONS
   T* get( int count );
-    // FIXME
-  void release( T*, int count );
-    // FIXME
+    // Returns an array of <count> T
+  void release( T* ptr, int count );
+    // Frees <count> T starting from memory location <ptr>
 };
 
-//CONSTRUCTORS
+
+// CONSTRUCTORS
 
 template<typename T>
 inline
@@ -42,11 +44,17 @@ DefaultAllocator<T>::DefaultAllocator( const DefaultAllocator<T>& )
 {
 }
 
+
+// DESTRUCTOR
+
 template<typename T>
 inline
 DefaultAllocator<T>::~DefaultAllocator()
 {
 }
+
+
+// MEMBER FUNCTIONS
 
 template<typename T>
 inline
@@ -59,7 +67,10 @@ template<typename T>
 inline
 void DefaultAllocator<T>::release( T* ptr, int count )
 {
-  delete ptr;
+  for( int i = 0; i < count && (ptr + i != 0); ++i )
+  {
+    delete ptr;
+  }
 }
 
 } // End sgdm namespace

@@ -18,6 +18,7 @@ private:
   int d_releaseCount;
   static int d_totalAllocationCount;
   static int d_totalReleaseCount;
+
 public:
   // CONSTRUCTORS
   CountingAllocator();
@@ -39,12 +40,12 @@ public:
   static int getTotalReleaseCount();
   static int getTotalOutstandingCount();
 
-  /*
+  // MEMBER FUNCTIONS
   T* get( int count );
     // FIXME
   void release( T* pointer, int count );
     // FIXME
-    */
+    
 };
 
 template<typename T>
@@ -52,6 +53,7 @@ int CountingAllocator<T>::d_totalAllocationCount = 0;
 
 template<typename T>
 int CountingAllocator<T>::d_totalReleaseCount = 0;
+
 
 // CONSTRUCTORS
 
@@ -68,6 +70,7 @@ CountingAllocator<T>::CountingAllocator( const CountingAllocator<T>& copy )
 {
 }
 
+
 // DESTRUCTOR
 
 template<typename T>
@@ -75,6 +78,9 @@ inline
 CountingAllocator<T>::~CountingAllocator()
 {
 }
+
+
+// ACCESSORS
 
 template<typename T>
 inline
@@ -117,6 +123,27 @@ inline
 int CountingAllocator<T>::getTotalOutstandingCount()
 {
   return d_totalAllocationCount - d_totalReleaseCount;
+}
+
+
+// MEMBER FUNCTIONS
+
+template<typename T>
+inline
+T* CountingAllocator<T>::get( int count )
+{
+  d_allocationCount += count;
+  d_totalAllocationCount += count;
+  return DefaultAllocator<T>::get( count );
+}
+
+template<typename T>
+inline
+void CountingAllocator<T>::release( T* ptr, int count )
+{
+  d_releaseCount += count;
+  d_totalReleaseCount += count;
+  DefaultAllocator<T>::release( ptr, count );
 }
 
 } // End sgdm namespace
