@@ -21,9 +21,12 @@ private:
 public:
   // CONSTRUCTORS
   CountingAllocator();
-  //CountingAllocator(const CountingAllocator&);
+    // Default constructor
+  CountingAllocator( const CountingAllocator<T>& );
+    // Copy constructor
 
-  //virtual ~CountingAllocator();
+  // DESTRUCTOR
+  ~CountingAllocator();
 
   //const CountingAllocator& operator=(const CountingAllocator&);
 
@@ -31,16 +34,45 @@ public:
   int getAllocationCount() const;
   int getReleaseCount() const;
   int getOutstandingCount() const;
-/*
+
   static int getTotalAllocationCount();
   static int getTotalReleaseCount();
   static int getTotalOutstandingCount();
-*/
+
+  /*
+  T* get( int count );
+    // FIXME
+  void release( T* pointer, int count );
+    // FIXME
+    */
 };
+
+template<typename T>
+int CountingAllocator<T>::d_totalAllocationCount = 0;
+
+template<typename T>
+int CountingAllocator<T>::d_totalReleaseCount = 0;
+
+// CONSTRUCTORS
 
 template<typename T>
 inline
 CountingAllocator<T>::CountingAllocator() : d_allocationCount( 0 ), d_releaseCount( 0 )
+{
+}
+
+template<typename T>
+inline
+CountingAllocator<T>::CountingAllocator( const CountingAllocator<T>& copy )
+  : d_allocationCount( copy.getAllocationCount() ), d_releaseCount( copy.getReleaseCount() )
+{
+}
+
+// DESTRUCTOR
+
+template<typename T>
+inline
+CountingAllocator<T>::~CountingAllocator()
 {
 }
 
@@ -65,28 +97,28 @@ int CountingAllocator<T>::getOutstandingCount() const
   return d_allocationCount - d_releaseCount;
 }
 
-/*
+
 template<typename T>
 inline
-static int CountingAllocator<T>::getTotalAllocationCount()
+int CountingAllocator<T>::getTotalAllocationCount()
 {
   return d_totalAllocationCount;
 }
 
 template<typename T>
 inline
-static int CountingAllocator<T>::getReleaseCount()
+int CountingAllocator<T>::getTotalReleaseCount()
 {
   return d_totalReleaseCount;
 }
 
 template<typename T>
 inline
-static int CountingAllocator<T>::getTotalOutstandingCount()
+int CountingAllocator<T>::getTotalOutstandingCount()
 {
   return d_totalAllocationCount - d_totalReleaseCount;
 }
-*/
+
 } // End sgdm namespace
 } // End StevensDev namespace
 

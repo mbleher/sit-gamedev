@@ -15,12 +15,20 @@ class DefaultAllocator : public IAllocator<T>
 public:
   // CONSTRUCTORS
   DefaultAllocator();
+    // Default constructor
+  DefaultAllocator( const DefaultAllocator<T>& );
+    // Copy constructor
 
+  // DESTRUCTOR
+  ~DefaultAllocator();
+  
   T* get( int count );
     // FIXME
   void release( T*, int count );
     // FIXME
 };
+
+//CONSTRUCTORS
 
 template<typename T>
 inline
@@ -30,16 +38,28 @@ DefaultAllocator<T>::DefaultAllocator()
 
 template<typename T>
 inline
-T* DefaultAllocator<T>::get( int count )
+DefaultAllocator<T>::DefaultAllocator( const DefaultAllocator<T>& )
 {
-  return 0;
 }
 
 template<typename T>
 inline
-void DefaultAllocator<T>::release( T*, int count )
+DefaultAllocator<T>::~DefaultAllocator()
 {
-  return;
+}
+
+template<typename T>
+inline
+T* DefaultAllocator<T>::get( int count )
+{
+  return new T[count];
+}
+
+template<typename T>
+inline
+void DefaultAllocator<T>::release( T* ptr, int count )
+{
+  delete ptr;
 }
 
 } // End sgdm namespace
