@@ -5,7 +5,7 @@
 
 #define INIT_ARRAY_SIZE 10
 
-#include "../memory/iallocator.h"
+#include "../memory/default_allocator.h"
 #include <stdexcept>
 
 namespace StevensDev
@@ -22,12 +22,17 @@ class DynamicArray
   unsigned int d_size;
 
   void doubleArraySize();
+    // Doubles the size of the array.
+  // Rationale: I chose to start from an initial array size of 10, then,
+  // each time you exceed the current size, it doubles. That way, we avoid
+  // reallocating and moving data around too many times if we ever need to
+  // store a lot of elements.
   
   public:
   // CONSTRUCTORS
   DynamicArray( sgdm::IAllocator<T>* alloc );
     // Constructor with an allocator for use with memory
-  //DynamicArray();
+  DynamicArray();
   //DynamicArray( const DynamicArray<T>& );
 
   // DESTRUCTOR
@@ -65,11 +70,11 @@ void DynamicArray<T>::doubleArraySize()
   unsigned int newSize = d_size * 2;
   d_size = newSize;
   newArray = d_alloc->get( d_size );
-  for ( unsigned int i = 0; i < d_length; ++i)
+  for ( unsigned int i = 0; i < d_length; ++i )
   {
     newArray[i] = d_array[i];
   }
-  //d_alloc->release( d_array, d_length );
+  d_alloc->release( d_array, d_size / 2 );
   d_array = newArray;
 }
 
@@ -83,6 +88,17 @@ DynamicArray<T>::DynamicArray( sgdm::IAllocator<T>* alloc )
   d_array = alloc->get( INIT_ARRAY_SIZE );
 }
 
+template<typename T>
+inline
+DynamicArray<T>::DynamicArray()
+  : d_length( 0 ), d_size ( INIT_ARRAY_SIZE )
+{
+  sgdm::DefaultAllocator<T> alloc;
+
+  d_alloc = alloc;
+  d_array = alloc->get( INIT_ARRAY_SIZE );
+}
+
 
 // DESTRUCTOR
 
@@ -90,8 +106,7 @@ template<typename T>
 inline
 DynamicArray<T>::~DynamicArray()
 {
-//  d_alloc->release( d_array, d_length );
-  delete [] d_array;
+  d_alloc->release( d_array, d_size );
 }
 
 
@@ -140,6 +155,7 @@ T DynamicArray<T>::pop()
   T elem;
 
   elem = d_array[--d_length];
+  // d_alloc->release( &(d_array[d_length]), 1 );
   d_array[d_length] = 0;
   return elem;
 }
@@ -155,6 +171,7 @@ T DynamicArray<T>::popFront()
   {
     d_array[i] = d_array[i + 1];
   }
+  // d_alloc->release( &(d_array[d_length--]), 1 );
   d_array[d_length--] = 0;
   return elem;
 }
