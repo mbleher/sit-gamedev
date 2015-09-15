@@ -5,11 +5,45 @@ cmake_minimum_required ( VERSION 2.6 )
 file( GLOB_RECURSE CPPFILES src/*.cpp )
 file( GLOB_RECURSE TESTFILES test/*.cpp )
 
+enable_language( C CXX )
+
+set( CMAKE_MODULE_PATH
+  ${CMAKE_MODULE_PATH}
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake
+  )
+
 include_directories(
   ${PROJECT_SOURCE_DIR}/src/engine/memory
   ${PROJECT_SOURCE_DIR}/src/engine/containers
+  ${PROJECT_SOURCE_DIR}/external/googletest/googletest
+  ${PROJECT_SOURCE_DIR}/external/googletest/googletest/include
   )
+
+add_custom_target(
+  git_update
+  COMMAND git submodule init
+  COMMAND git submodule update
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+  )
+
+add_library(
+  gtest
+  ${PROJECT_SOURCE_DIR}/external/googletest/googletest/src/gtest-all.cc
+  ${PROJECT_SOURCE_DIR}/external/googletest/googletest/src/gtest_main.cc
+  )
+
+add_dependencies(gtest git_update)
+
+set_source_files_properties(${PROJECT_SOURCE_DIR}/external/googletest/googletest/src/gtest-all.cc PROPERTIES GENERATED 1)
+set_source_files_properties(${PROJECT_SOURCE_DIR}/external/googletest/googletest/src/gtest_main.cc PROPERTIES GENERATED 1)
 
 add_executable ( Game game.m.cpp ${CPPFILES} )
 add_executable ( runTests test/test.m.cpp ${CPPFILES} ${TESTFILES} )
-target_link_libraries ( runTests ${CMAKE_CURRENT_SOURCE_DIR}/libs/libgtest.a ${CMAKE_CURRENT_SOURCE_DIR}/libs/libgtest_main.a pthread )
+
+add_dependencies( runTests gtest )
+
+target_link_libraries(
+  runTests
+  gtest
+  pthread
+  )
