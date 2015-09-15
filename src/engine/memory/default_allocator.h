@@ -4,6 +4,7 @@
 # define INCLUDED_DEFAULT_ALLOCATOR
 
 #include "iallocator.h"
+#include <cassert>
 
 namespace StevensDev
 {
@@ -67,16 +68,9 @@ template<typename T>
 inline
 void DefaultAllocator<T>::release( T* ptr, int count )
 {
-//  for( int i = 0; i < count && (ptr + i != 0); ++i, ++ptr )
-//  {
-//    delete ptr;
-//    ptr = 0;
-//  }
-  if( ptr )
-  {
-    delete [] ptr;
-    ptr = 0;
-  }
+  assert( ptr );
+  delete [] ptr;
+  ptr = 0;
 }
 
 } // End sgdm namespace

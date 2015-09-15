@@ -29,4 +29,4 @@ Once the application has been successfully built, run the following command at t
 
 # Coding Standard
 
-The coding standard used for this project can be found [here](CodingStandard.md)
+The coding standard used for this project can be found [here](CodingStandard.md).
