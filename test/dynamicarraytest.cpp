@@ -2,7 +2,7 @@
 
 #include "dynamicarray.h"
 #include "counting_allocator.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 TEST( DynamicArray, Constructors )
 {

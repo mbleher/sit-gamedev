@@ -1,7 +1,7 @@
 // allocatortest.cpp
 
 #include "counting_allocator.h"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 TEST( CountingAllocator, Constructors )
 {
