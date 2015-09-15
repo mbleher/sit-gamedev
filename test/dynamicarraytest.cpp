@@ -4,7 +4,7 @@
 #include "counting_allocator.h"
 #include <gtest/gtest.h>
 
-TEST(DynamicArray, Constructors)
+TEST( DynamicArray, Constructors )
 {
   using namespace StevensDev;
   
@@ -59,4 +59,23 @@ TEST( DynamicArray, RemoveAt )
   ASSERT_EQ( 1, daInt[3] );
   daInt.removeAt( 3 );
   ASSERT_EQ( 0, daInt[3] );
+}
+
+TEST( DynamicArray, MemoryLeaks )
+{
+  using namespace StevensDev;
+  
+  sgdm::CountingAllocator<int> caInt;
+  sgdc::DynamicArray<int>* daInt = new sgdc::DynamicArray<int>( &caInt );
+
+  for( unsigned int i = 0; i < 30; ++i )
+  {
+    daInt->push( i );
+  }
+  ASSERT_EQ( 70, caInt.getAllocationCount() );
+  ASSERT_EQ( 30, caInt.getReleaseCount() );
+  ASSERT_EQ( 40, caInt.getOutstandingCount() );
+
+  delete daInt;
+  ASSERT_EQ( 0, caInt.getOutstandingCount() );
 }

@@ -5,6 +5,7 @@
 
 #include "iallocator.h"
 #include <cassert>
+#include <iostream>
 
 namespace StevensDev
 {
@@ -54,6 +55,15 @@ DefaultAllocator<T>::~DefaultAllocator()
 {
 }
 
+
+// FREE OPERATORS
+
+template<typename T>
+inline
+std::ostream& operator<<( std::ostream& stream, const DefaultAllocator<T>& )
+{
+  return stream << "{ \"allocator\" : default }";
+}
 
 // MEMBER FUNCTIONS
 

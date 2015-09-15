@@ -149,7 +149,7 @@ std::ostream& operator<<( std::ostream& stream, const DynamicArray<T>& dynArray 
   {
     stream << "\t{\"value\":" << dynArray[i] << "}," << std::endl;
   }
-  stream << "\t{\"value\":" << dynArray[i] << "}\n]" << std::endl;
+  stream << "\t{\"value\":" << dynArray[i] << "}\n]";
   return stream;
 }
 // MEMBER FUNCTIONS

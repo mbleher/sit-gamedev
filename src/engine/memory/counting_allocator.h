@@ -126,6 +126,16 @@ int CountingAllocator<T>::getTotalOutstandingCount()
 }
 
 
+// FREE OPERATORS
+
+template<typename T>
+inline
+std::ostream& operator<<( std::ostream& stream, const CountingAllocator<T>& )
+{
+  return stream << "{ \"allocator\" : counting }";
+}
+
+
 // MEMBER FUNCTIONS
 
 template<typename T>
