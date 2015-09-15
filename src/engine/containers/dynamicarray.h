@@ -5,7 +5,7 @@
 
 #define INIT_ARRAY_SIZE 10
 
-#include "../memory/default_allocator.h"
+#include "default_allocator.h"
 #include <stdexcept>
 #include <iostream>
 
