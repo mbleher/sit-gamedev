@@ -4,6 +4,7 @@
 # define INCLUDED_MAP
 
 #include "dynamicarray.h"
+#include "node.h"
 #include <string>
 
 namespace StevensDev
@@ -17,6 +18,7 @@ class Map
   sgdm::IAllocator<T>* d_alloc;
   DynamicArray<std::string> d_keys;
   DynamicArray<T> d_values;
+  Node<T> d_root;
   
   public:
   // CONSTRUCTORS
@@ -31,9 +33,9 @@ class Map
   ~Map();
 
   // ACCESSORS
-  const DynamicArray<std::string>& getKeys() const;
+  const DynamicArray<std::string>& keys() const;
     // Gets Key array
-  const DynamicArray<T>& getValues() const;
+  const DynamicArray<T>& values() const;
     // Gets Value array
 
   // OPERATORS
@@ -51,13 +53,15 @@ class Map
 
 template<typename T>
 inline
-Map<T>::Map( sgdm::IAllocator<T>* alloc ) : d_alloc ( alloc )
+Map<T>::Map( sgdm::IAllocator<T>* alloc )
+  : d_alloc( alloc ), d_root()
 {
 }
 
 template<typename T>
 inline
 Map<T>::Map()
+  : d_root()
 {
   sgdm::DefaultAllocator<T>* alloc = new sgdm::DefaultAllocator<T>();
 
@@ -67,7 +71,8 @@ Map<T>::Map()
 template<typename T>
 inline
 Map<T>::Map( const Map<T>& copy )
-  : d_alloc( copy.d_alloc ), d_keys( copy.d_keys ), d_values( copy.d_values )
+  : d_alloc( copy.d_alloc ), d_keys( copy.d_keys ),
+    d_values( copy.d_values ), d_root( copy.d_root )
 {
 }
 
@@ -85,14 +90,14 @@ Map<T>::~Map()
 
 template<typename T>
 inline
-const DynamicArray<std::string>& Map<T>::getKeys() const
+const DynamicArray<std::string>& Map<T>::keys() const
 {
   return d_keys;
 }
 
 template<typename T>
 inline
-const DynamicArray<T>& Map<T>::getValues() const
+const DynamicArray<T>& Map<T>::values() const
 {
   return d_values;
 }
@@ -104,8 +109,8 @@ template<typename T>
 inline
 T& Map<T>::operator[]( const std::string& key )
 {
-  // FIXME
-  return 0;
+  return d_values[0];
+//  return d_root.addSons( key )->value();
 }
 
 template<typename T>
@@ -113,7 +118,8 @@ inline
 const T& Map<T>::operator[]( const std::string& key ) const
 {
   // FIXME
-  return 0;
+  // return d_root.addSons( key )->value();
+  return d_values[0];
 }
 
 

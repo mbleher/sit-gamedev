@@ -32,13 +32,13 @@ class CountingAllocator : public DefaultAllocator<T>
   //const CountingAllocator& operator=(const CountingAllocator&);
 
   // ACCESSORS
-  int getAllocationCount() const;
-  int getReleaseCount() const;
-  int getOutstandingCount() const;
+  int allocationCount() const;
+  int releaseCount() const;
+  int outstandingCount() const;
 
-  static int getTotalAllocationCount();
-  static int getTotalReleaseCount();
-  static int getTotalOutstandingCount();
+  static int totalAllocationCount();
+  static int totalReleaseCount();
+  static int totalOutstandingCount();
 
   // MEMBER FUNCTIONS
   T* get( int count );
@@ -66,7 +66,7 @@ CountingAllocator<T>::CountingAllocator() : d_allocationCount( 0 ), d_releaseCou
 template<typename T>
 inline
 CountingAllocator<T>::CountingAllocator( const CountingAllocator<T>& copy )
-  : d_allocationCount( copy.getAllocationCount() ), d_releaseCount( copy.getReleaseCount() )
+  : d_allocationCount( copy.allocationCount() ), d_releaseCount( copy.releaseCount() )
 {
 }
 
@@ -84,21 +84,21 @@ CountingAllocator<T>::~CountingAllocator()
 
 template<typename T>
 inline
-int CountingAllocator<T>::getAllocationCount() const
+int CountingAllocator<T>::allocationCount() const
 {
   return d_allocationCount;
 }
 
 template<typename T>
 inline
-int CountingAllocator<T>::getReleaseCount() const
+int CountingAllocator<T>::releaseCount() const
 {
   return d_releaseCount;
 }
 
 template<typename T>
 inline
-int CountingAllocator<T>::getOutstandingCount() const
+int CountingAllocator<T>::outstandingCount() const
 {
   return d_allocationCount - d_releaseCount;
 }
@@ -106,21 +106,21 @@ int CountingAllocator<T>::getOutstandingCount() const
 
 template<typename T>
 inline
-int CountingAllocator<T>::getTotalAllocationCount()
+int CountingAllocator<T>::totalAllocationCount()
 {
   return d_totalAllocationCount;
 }
 
 template<typename T>
 inline
-int CountingAllocator<T>::getTotalReleaseCount()
+int CountingAllocator<T>::totalReleaseCount()
 {
   return d_totalReleaseCount;
 }
 
 template<typename T>
 inline
-int CountingAllocator<T>::getTotalOutstandingCount()
+int CountingAllocator<T>::totalOutstandingCount()
 {
   return d_totalAllocationCount - d_totalReleaseCount;
 }

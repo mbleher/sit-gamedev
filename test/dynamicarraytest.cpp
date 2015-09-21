@@ -10,11 +10,11 @@ TEST( DynamicArray, Constructors )
   
   sgdm::CountingAllocator<int> caInt;
   sgdc::DynamicArray<int> daIntAlloc( &caInt );
-  ASSERT_EQ( 0, daIntAlloc.getLength() );
+  ASSERT_EQ( 0, daIntAlloc.length() );
   sgdc::DynamicArray<int> daIntDef;
-  ASSERT_EQ( 0, daIntDef.getLength() );
+  ASSERT_EQ( 0, daIntDef.length() );
   sgdc::DynamicArray<int> daIntCopy( daIntDef );
-  ASSERT_EQ( 0, daIntCopy.getLength() );
+  ASSERT_EQ( 0, daIntCopy.length() );
 }
 
 TEST( DynamicArray, PushAt )
@@ -27,7 +27,7 @@ TEST( DynamicArray, PushAt )
   daInt.push( 2 );
   ASSERT_EQ( 1, daInt.at( 0 ) );
   ASSERT_EQ( 2, daInt.at( 1 ) );
-  ASSERT_EQ( 2, daInt.getLength() );
+  ASSERT_EQ( 2, daInt.length() );
 }
 
 TEST( DynamicArray, Pop )
@@ -72,10 +72,10 @@ TEST( DynamicArray, MemoryLeaks )
   {
     daInt->push( i );
   }
-  ASSERT_EQ( 70, caInt.getAllocationCount() );
-  ASSERT_EQ( 30, caInt.getReleaseCount() );
-  ASSERT_EQ( 40, caInt.getOutstandingCount() );
+  ASSERT_EQ( 70, caInt.allocationCount() );
+  ASSERT_EQ( 30, caInt.releaseCount() );
+  ASSERT_EQ( 40, caInt.outstandingCount() );
 
   delete daInt;
-  ASSERT_EQ( 0, caInt.getOutstandingCount() );
+  ASSERT_EQ( 0, caInt.outstandingCount() );
 }

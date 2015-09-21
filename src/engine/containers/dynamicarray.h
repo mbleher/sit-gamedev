@@ -43,7 +43,7 @@ class DynamicArray
   ~DynamicArray();
 
   // ACCESSORS
-  unsigned int getLength() const;
+  unsigned int length() const;
     // Number of elements contained
 
   // MEMBER FUNCTIONS
@@ -111,7 +111,7 @@ DynamicArray<T>::DynamicArray( const DynamicArray<T>& copy )
   : d_length( copy.d_length ), d_size( copy.d_size ), d_alloc( copy.d_alloc )
 {
   d_array = d_alloc->get( d_size );
-  for( unsigned int i = 0; i < copy.getLength(); ++i )
+  for( unsigned int i = 0; i < copy.length(); ++i )
   {
     push( copy[i] );
   }
@@ -131,7 +131,7 @@ DynamicArray<T>::~DynamicArray()
 
 template<typename T>
 inline
-unsigned int DynamicArray<T>::getLength() const
+unsigned int DynamicArray<T>::length() const
 {
   return d_length;
 }
