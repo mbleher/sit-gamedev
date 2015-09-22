@@ -57,7 +57,9 @@ class DynamicArray
     // Removes and retrieves the first element from collection
   T at( unsigned int index ) const;
     // Retrieves an element at a location
-  T operator[]( int index ) const;
+  T& operator[]( int index );
+    // Retrieves an element at a location
+  T& operator[]( int index ) const;
     // Retrieves an element at a location
   void removeAt( unsigned int index );
     // Removes an element at a location
@@ -219,7 +221,14 @@ T DynamicArray<T>::at( unsigned int index ) const
 
 template<typename T>
 inline
-T DynamicArray<T>::operator[]( int index ) const
+T& DynamicArray<T>::operator[]( int index ) const
+{
+  return d_array[index];
+}
+
+template<typename T>
+inline
+T& DynamicArray<T>::operator[]( int index )
 {
   return d_array[index];
 }

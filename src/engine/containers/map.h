@@ -6,6 +6,7 @@
 #include "dynamicarray.h"
 #include "node.h"
 #include <string>
+#include <iostream>
 
 namespace StevensDev
 {
@@ -18,7 +19,7 @@ class Map
   sgdm::IAllocator<T>* d_alloc;
   DynamicArray<std::string> d_keys;
   DynamicArray<T> d_values;
-  Node<T> d_root;
+  Node d_root;
   
   public:
   // CONSTRUCTORS
@@ -43,7 +44,7 @@ class Map
   const T& operator[]( const std::string& key ) const;
 
   // MEMBER FUNCTIONS
-  bool has( std::string& key ) const;
+  bool has( const std::string& key );
     // Determines if a key exists in the map
   T remove( std::string& key );
     // Removes a key-value
@@ -109,16 +110,22 @@ template<typename T>
 inline
 T& Map<T>::operator[]( const std::string& key )
 {
-  return d_values[0];
-//  return d_root.addSons( key )->value();
+  unsigned int before = Node::current();
+  unsigned int index = d_root.search( key );
+  unsigned int after = Node::current();
+
+  if( before != after )
+  {
+    d_keys.push( key );
+  }
+  return d_values[index];
 }
 
 template<typename T>
 inline
 const T& Map<T>::operator[]( const std::string& key ) const
 {
-  // FIXME
-  // return d_root.addSons( key )->value();
+  //unsigned int index = d_root.addSons( key );
   return d_values[0];
 }
 
@@ -127,9 +134,9 @@ const T& Map<T>::operator[]( const std::string& key ) const
 
 template<typename T>
 inline
-bool Map<T>::has( std::string& key ) const
+bool Map<T>::has( const std::string& key )
 {
-  return false;
+  return d_root.has( key );
 }
 
 template<typename T>
