@@ -47,6 +47,29 @@ TEST( Map, Has )
   ASSERT_EQ( 7, mapInt["testt"] );
 }
 
+TEST( Map, Remove )
+{
+  using namespace StevensDev;
+
+  sgdm::CountingAllocator<int> caInt;
+  sgdc::Map<int> mapInt( &caInt );
+
+  sgdc::Node::resetCurrent();
+
+  mapInt["toremove"] = 5;
+  mapInt["shouldshiftleft"] = 1337;
+  ASSERT_EQ( 2, mapInt.values().length() );
+  ASSERT_TRUE( mapInt.has( "toremove" ) );
+  ASSERT_TRUE( mapInt.has( "shouldshiftleft" ) );
+  ASSERT_EQ( 1337, mapInt.values().at( 1 ) );
+  ASSERT_EQ( 5, mapInt.remove( "toremove" ) );
+  ASSERT_FALSE( mapInt.has( "toremove" ) );
+  ASSERT_EQ( 1337, mapInt["shouldshiftleft"] );
+  ASSERT_EQ( 1337, mapInt.values().at( 0 ) );
+  mapInt["index1"] = 101010;
+  ASSERT_EQ( 101010, mapInt.values().at( 1 ) );
+}
+
 TEST( Map, AlNumKeys )
 {
   using namespace StevensDev;

@@ -246,7 +246,7 @@ T DynamicArray<T>::removeAt( unsigned int index )
   {
     d_array[i] = d_array[i + 1];
   }
-  d_array[d_length--] = 0;
+  d_length--;
   return tmp;
 }
 

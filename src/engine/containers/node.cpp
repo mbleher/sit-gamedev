@@ -86,6 +86,17 @@ int Node::search( const std::string& key ) const
   return d_index;
 }
 
+int Node::remove( const std::string& key )
+{
+  if( key.length() > 1 )
+  {
+    return d_sons[alNumToIndex( key[0] )]->remove( key.substr( 1 ) );
+  }
+  int index = d_sons[alNumToIndex( key[0] )]->d_index;
+  d_sons[alNumToIndex( key[0] )]->d_index = -1;
+  return index;
+}
+
 bool Node::has( const std::string& key ) const
 {
   if( key.length() == 1 )
@@ -105,6 +116,29 @@ bool Node::has( const std::string& key ) const
   return son->has( key.substr( 1 ) );
 }
 
+void Node::updateIndexes( int fromIndex, bool first )
+{
+  if( first )
+  {
+    --d_current;
+  }
+  if( d_index > fromIndex )
+  {
+    --d_index;
+  }
+
+  if( d_sons != 0 )
+  {
+    for( unsigned int i = 0; i < 36; ++i )
+    {
+      if( d_sons[i] != 0 )
+      {
+	d_sons[i]->updateIndexes( fromIndex, false );
+      }
+    }
+  }
+}
+
 int Node::alNumToIndex( char c )
 {
   if( !( c >= 'a' && c <= 'z' ) && !( c >= '0' && c <= '9' ) )
@@ -119,6 +153,11 @@ int Node::alNumToIndex( char c )
 unsigned int Node::current()
 {
   return d_current;
+}
+
+void Node::resetCurrent()
+{
+  d_current = 0;
 }
 
 } // End sgdc namespace

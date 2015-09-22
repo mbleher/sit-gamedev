@@ -116,6 +116,7 @@ T& Map<T>::operator[]( const std::string& key )
 
   if( before != after )
   {
+    d_values.push( 0 );
     d_keys.push( key );
   }
   return d_values[index];
@@ -144,6 +145,21 @@ template<typename T>
 inline
 T Map<T>::remove( const std::string& key )
 {
+  bool found = false;
+  for( unsigned int i = 0; i < d_keys.length() && !found; ++i )
+  {
+    if( d_keys[i].compare( key ) == 0 )
+    {
+      d_keys.removeAt( i );
+      found = true;
+    }
+  }
+  if( found )
+  {
+    int index = d_root.remove( key );
+    d_root.updateIndexes( index, true );
+    return d_values.removeAt( index );
+  }
   return 0;
 }
 
