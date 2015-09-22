@@ -2,7 +2,7 @@
 
 #include "node.h"
 #include <iostream>
-#include <cassert>
+#include <stdexcept>
 
 namespace StevensDev
 {
@@ -107,7 +107,10 @@ bool Node::has( const std::string& key ) const
 
 int Node::alNumToIndex( char c )
 {
-  assert( ( c >= 'a' && c <= 'z' ) || ( c >= '0' && c <= '9' ) );
+  if( !( c >= 'a' && c <= 'z' ) && !( c >= '0' && c <= '9' ) )
+  {
+    throw std::out_of_range( "unsupported key" );
+  }
   if( c >= 'a' && c <= 'z' )
     return c - 'a';
   return c - '0' + 26;

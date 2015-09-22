@@ -61,7 +61,7 @@ class DynamicArray
     // Retrieves an element at a location
   T& operator[]( int index ) const;
     // Retrieves an element at a location
-  void removeAt( unsigned int index );
+  T removeAt( unsigned int index );
     // Removes an element at a location
   void insertAt( unsigned int index, const T& element );
     // Inserts an element at a location
@@ -175,7 +175,7 @@ void DynamicArray<T>::pushFront( const T& element )
   {
     doubleArraySize();
   }
-  for (unsigned int i = d_length++; i > 0; --i)
+  for ( unsigned int i = d_length++; i > 0; --i )
   {
     d_array[i] = d_array[i - 1];
   }
@@ -200,7 +200,7 @@ T DynamicArray<T>::popFront()
   T elem;
 
   elem = d_array[0];
-  for (unsigned int i = 0; i < d_length; ++i)
+  for ( unsigned int i = 0; i < d_length; ++i )
   {
     d_array[i] = d_array[i + 1];
   }
@@ -235,13 +235,19 @@ T& DynamicArray<T>::operator[]( int index )
 
 template<typename T>
 inline
-void DynamicArray<T>::removeAt( unsigned int index )
+T DynamicArray<T>::removeAt( unsigned int index )
 {
   if( index >= d_length )
   {
     throw std::out_of_range( "index out of range" );
   }
-  d_array[index] = 0;
+  T tmp = d_array[index];
+  for ( unsigned int i = index; i < d_length - 1; ++i )
+  {
+    d_array[i] = d_array[i + 1];
+  }
+  d_array[d_length--] = 0;
+  return tmp;
 }
 
 template<typename T>
@@ -256,7 +262,7 @@ void DynamicArray<T>::insertAt( unsigned int index, const T& element )
   {
     doubleArraySize();
   }
-  for (unsigned int i = d_length++; i > index; --i)
+  for ( unsigned int i = d_length++; i > index; --i )
   {
     d_array[i] = d_array[i - 1];
   }

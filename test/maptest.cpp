@@ -59,3 +59,14 @@ TEST( Map, AlNumKeys )
   mapInt["abcdefghijklmnopqrstuvwxyz1234567890"] = 9000;
   ASSERT_TRUE( mapInt.has( "abcdefghijklmnopqrstuvwxyz1234567890" ) );  
 }
+
+TEST( Map, Exceptions )
+{
+  using namespace StevensDev;
+
+  sgdm::CountingAllocator<int> caInt;
+  sgdc::Map<int> mapInt( &caInt );
+
+  ASSERT_THROW( mapInt["ABC"], std::out_of_range );
+  ASSERT_THROW( mapInt["-+/*"], std::out_of_range );
+}

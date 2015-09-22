@@ -59,6 +59,12 @@ TEST( DynamicArray, RemoveAt )
   ASSERT_EQ( 1, daInt[3] );
   daInt.removeAt( 3 );
   ASSERT_EQ( 0, daInt[3] );
+
+  ASSERT_EQ( 4, daInt[0] );
+  daInt.removeAt( 0 );
+  ASSERT_EQ( 3, daInt[0] );
+  ASSERT_EQ( 3, daInt.length() );
+  ASSERT_THROW( daInt.removeAt( 4 ), std::out_of_range );
 }
 
 TEST( DynamicArray, MemoryLeaks )
