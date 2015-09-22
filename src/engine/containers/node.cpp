@@ -11,6 +11,9 @@ namespace sgdc
 
 unsigned int Node::d_current = 0;
 
+
+// CONSTRUCTORS
+
 Node::Node()
   : d_key( '0' ), d_index( -1 ), d_sons( 0 )
 {
@@ -21,9 +24,11 @@ Node::Node( char key )
 {
 }
 
+
+// DESTRUCTOR
+
 Node::~Node()
 {
-/*
   if( d_sons != 0 )
   {
     for (unsigned int i = 0; i < 36; ++i)
@@ -34,13 +39,31 @@ Node::~Node()
       }
     }
   }
-*/
 }
+
+
+// ACCESSORS
 
 int Node::index() const
 {
   return d_index;
 }
+
+char Node::key() const
+{
+  return d_key;
+}
+
+// FREE OPERATORS
+
+std::ostream& operator<<( std::ostream& stream, const Node& node )
+{
+  stream << "{ \"key\":\"" << node.key() << "\",\n"
+	 << "\"index\":\"" << node.index() << "\"}";
+  return stream;
+}
+
+// MEMBER FUNCTIONS
 
 int Node::search( const std::string& key )
 {

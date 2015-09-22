@@ -132,6 +132,26 @@ const T& Map<T>::operator[]( const std::string& key ) const
 }
 
 
+// FREE OPERATORS
+
+template<typename T>
+inline
+std::ostream& operator<<( std::ostream& stream, const Map<T>& map )
+{
+  stream << "\"map\":[\n";
+  for( unsigned int i = 0; i < map.keys().length(); ++i )
+  {
+    stream << "{\"key\":\"" << map.keys().at( i ) << "\", "
+	   << "\"value\":\"" << map[map.keys().at( i )] << "\"}";
+    if( i != map.keys().length() - 1 )
+    {
+      stream << ",\n";
+    }
+  }
+  stream << "\n]\n";
+  return stream;
+}
+
 // MEMBER FUNCTIONS
 
 template<typename T>

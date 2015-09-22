@@ -138,6 +138,7 @@ unsigned int DynamicArray<T>::length() const
   return d_length;
 }
 
+
 // FREE OPERATORS
 
 template<typename T>
@@ -154,6 +155,8 @@ std::ostream& operator<<( std::ostream& stream, const DynamicArray<T>& dynArray 
   stream << "\t{\"value\":" << dynArray[i] << "}\n]";
   return stream;
 }
+
+
 // MEMBER FUNCTIONS
 
 template<typename T>
