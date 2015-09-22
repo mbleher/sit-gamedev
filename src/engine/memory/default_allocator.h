@@ -29,6 +29,12 @@ class DefaultAllocator : public IAllocator<T>
     // Returns an array of <count> T.
   void release( T* ptr, int count );
     // Frees <count> T starting from memory location <ptr>.
+  void construct( T* ptr, const T& copy );
+    // Construct a T object in-place by copy.
+  void construct( T* ptr, T&& copy );
+    // Construct a T object in-place by move.
+  void destruct( T* ptr );
+    // Call the destructor on an object.
 };
 
 
@@ -81,6 +87,27 @@ void DefaultAllocator<T>::release( T* ptr, int count )
   assert( ptr );
   delete [] ptr;
   ptr = 0;
+}
+
+template<typename T>
+inline
+void construct( T* ptr, const T& copy )
+{
+  ptr = new T( copy );
+}
+
+template<typename T>
+inline
+void construct( T* ptr, T&& copy )
+{
+  ptr = new T( copy );
+}
+
+template<typename T>
+inline
+void destruct( T* ptr )
+{
+  delete ptr;
 }
 
 } // End sgdm namespace

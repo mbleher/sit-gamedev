@@ -14,6 +14,9 @@ class IAllocator
   public:
   virtual T* get( int count ) = 0;
   virtual void release( T*, int count ) = 0;
+  virtual void construct( T*, const T& copy ) = 0;
+  virtual void construct( T*, T&& copy ) = 0;
+  virtual void destruct( T* ) = 0;
 };
 
 } // End sgdm namespace
