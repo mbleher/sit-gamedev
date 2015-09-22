@@ -22,7 +22,9 @@ class Node
   ~Node();
   int index() const;
   int search( const std::string& key );
+  int search( const std::string& key ) const;
   bool has( const std::string& key ) const;
+  static int alNumToIndex( char c );
   static unsigned int current();
 };
 

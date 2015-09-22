@@ -46,7 +46,7 @@ class Map
   // MEMBER FUNCTIONS
   bool has( const std::string& key );
     // Determines if a key exists in the map
-  T remove( std::string& key );
+  T remove( const std::string& key );
     // Removes a key-value
 };
 
@@ -125,8 +125,9 @@ template<typename T>
 inline
 const T& Map<T>::operator[]( const std::string& key ) const
 {
-  //unsigned int index = d_root.addSons( key );
-  return d_values[0];
+  unsigned int index = d_root.search( key );
+
+  return d_values[index];
 }
 
 
@@ -141,7 +142,7 @@ bool Map<T>::has( const std::string& key )
 
 template<typename T>
 inline
-T Map<T>::remove( std::string& key )
+T Map<T>::remove( const std::string& key )
 {
   return 0;
 }
