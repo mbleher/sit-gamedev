@@ -1,6 +1,6 @@
 // dynamicarraytest.cpp
 
-#include "dynamicarray.h"
+#include "dynamic_array.h"
 #include "counting_allocator.h"
 #include "gtest/gtest.h"
 

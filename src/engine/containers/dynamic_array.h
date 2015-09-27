@@ -1,4 +1,4 @@
-// dynamicarray.h
+// dynamic_array.h
 
 #ifndef INCLUDED_DYNAMICARRAY
 # define INCLUDED_DYNAMICARRAY

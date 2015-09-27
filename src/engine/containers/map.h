@@ -3,7 +3,7 @@
 #ifndef INCLUDED_MAP
 # define INCLUDED_MAP
 
-#include "dynamicarray.h"
+#include "dynamic_array.h"
 #include "node.h"
 #include <string>
 #include <iostream>
