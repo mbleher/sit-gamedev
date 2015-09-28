@@ -115,7 +115,7 @@ DynamicArray<T>::DynamicArray( const DynamicArray<T>& copy )
   d_array = d_alloc->get( d_size );
   for( unsigned int i = 0; i < copy.length(); ++i )
   {
-    push( copy[i] );
+    ( *this )[i] = copy[i];
   }
 }
 
@@ -147,12 +147,12 @@ std::ostream& operator<<( std::ostream& stream, const DynamicArray<T>& dynArray 
 {
   unsigned int i;
 
-  stream << "array:[" << std::endl;
-  for( i = 0; i < dynArray.getLength() - 1; ++i )
+  stream << "[" << std::endl;
+  for( i = 0; i < dynArray.length() - 1; ++i )
   {
-    stream << "\t{\"value\":" << dynArray[i] << "}," << std::endl;
+    stream << "\t" << dynArray[i] << ", " << std::endl;
   }
-  stream << "\t{\"value\":" << dynArray[i] << "}\n]";
+  stream << "\t" << dynArray[i] << "\n]";
   return stream;
 }
 
