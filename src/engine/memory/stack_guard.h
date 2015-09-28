@@ -21,7 +21,7 @@ class StackGuard
   public:
   // CONSTRUCTORS
   StackGuard( T* guarded );
-  StackGuard( T* guarded, IAllocator<T> allocator );
+  StackGuard( T* guarded, IAllocator<T>* allocator );
 
   // DESTRUCTOR
   ~StackGuard();
@@ -45,12 +45,12 @@ StackGuard<T>::StackGuard( const StackGuard<T>& guard )
 
 template<typename T>
 StackGuard<T>::StackGuard( T* guarded )
-  : d_guarded( guarded ), d_allocator( DefaultAllocator<T>() )
+  : d_guarded( guarded ), d_allocator( new DefaultAllocator<T>() )
 {
 }
 
 template<typename T>
-StackGuard<T>::StackGuard( T* guarded, IAllocator<T> allocator )
+StackGuard<T>::StackGuard( T* guarded, IAllocator<T>* allocator )
   : d_guarded( guarded ), d_allocator( allocator )
 {
 }
@@ -76,7 +76,7 @@ T* StackGuard<T>::operator->() const
 template<typename T>
 bool StackGuard<T>::operator==( bool rhs ) const
 {
-  return false;
+  return rhs != !d_guarded;
 }
 
 template<typename T>
@@ -88,7 +88,7 @@ bool StackGuard<T>::operator!() const
 template<typename T>
 bool StackGuard<T>::operator!=( bool rhs ) const
 {
-  return false;
+  return rhs == !d_guarded;
 }
 } // End sgdm namespace
 } // End StevensDev namespace
