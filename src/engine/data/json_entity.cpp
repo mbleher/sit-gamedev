@@ -29,13 +29,13 @@ JsonEntity::JsonEntity( double d )
 JsonEntity::JsonEntity( std::string& s )
   : d_type( STRING )
 {
-  d_data.s = &s;
+  d_data.s = new std::string( s );
 }
 
-JsonEntity::JsonEntity(sgdc::DynamicArray<JsonEntity>& a)
+JsonEntity::JsonEntity(sgdc::DynamicArray<JsonEntity*>& a)
   : d_type( ARRAY )
 {
-  d_data.a = &a;
+  d_data.a = new sgdc::DynamicArray<JsonEntity*>( a );
 }
 
 JsonEntity::JsonEntity( bool b )
@@ -44,10 +44,10 @@ JsonEntity::JsonEntity( bool b )
   d_data.b = b;
 }
 
-JsonEntity::JsonEntity( sgdc::Map<JsonEntity>& m )
+JsonEntity::JsonEntity( sgdc::Map<JsonEntity*>& m )
   : d_type( OBJECT )
 {
-  d_data.m = &m;
+  d_data.m = new sgdc::Map<JsonEntity*>( m );
 }
 
 
@@ -83,7 +83,7 @@ const std::string& JsonEntity::asString() const
   return *d_data.s;
 }
 
-sgdc::DynamicArray<JsonEntity>& JsonEntity::asArray() const
+sgdc::DynamicArray<JsonEntity*>& JsonEntity::asArray() const
 {
   assert( d_type == ARRAY );
   return *d_data.a;
@@ -101,13 +101,13 @@ bool JsonEntity::asBool() const
 const JsonEntity& JsonEntity::operator[]( const std::string& key ) const
 {
   assert( d_type == OBJECT );
-  return ( *d_data.m )[key];
+  return *( ( *d_data.m )[key] );
 }
 
 const JsonEntity& JsonEntity::operator[]( int index ) const
 {
   assert( d_type == ARRAY );
-  return ( *d_data.a )[index];
+  return *( ( *d_data.a )[index] );
 }
 
 

@@ -32,9 +32,9 @@ class JsonEntity
     int i;
     double d;
     std::string* s;
-    sgdc::DynamicArray<JsonEntity>* a;
+    sgdc::DynamicArray<JsonEntity*>* a;
     bool b;
-    sgdc::Map<JsonEntity>* m;
+    sgdc::Map<JsonEntity*>* m;
   } d_data;
   public:
   // CONSTRUCTORS
@@ -42,9 +42,9 @@ class JsonEntity
   JsonEntity( int i );
   JsonEntity( double d );
   JsonEntity( std::string& s );
-  JsonEntity( sgdc::DynamicArray<JsonEntity>& a );
+  JsonEntity( sgdc::DynamicArray<JsonEntity*>& a );
   JsonEntity( bool b );
-  JsonEntity( sgdc::Map<JsonEntity>& m );
+  JsonEntity( sgdc::Map<JsonEntity*>& m );
 
   // DESTRUCTOR
   ~JsonEntity();
@@ -54,12 +54,13 @@ class JsonEntity
   int asInt() const;
   double asDouble() const;
   const std::string& asString() const;
-  sgdc::DynamicArray<JsonEntity>& asArray() const;
+  sgdc::DynamicArray<JsonEntity*>& asArray() const;
   bool asBool() const;
 
   // OPERATORS
   const JsonEntity& operator[]( const std::string& key ) const;
   const JsonEntity& operator[]( int index ) const;
+  //JsonEntity& operator[]( const std::string& key ) const;
 
   // MEMBER FUNCTIONS
   bool isInt() const;
