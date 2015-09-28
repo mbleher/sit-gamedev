@@ -15,6 +15,7 @@ set( CMAKE_MODULE_PATH
 include_directories(
   ${PROJECT_SOURCE_DIR}/src/engine/memory
   ${PROJECT_SOURCE_DIR}/src/engine/containers
+  ${PROJECT_SOURCE_DIR}/src/engine/data
   ${PROJECT_SOURCE_DIR}/external/googletest/googletest
   ${PROJECT_SOURCE_DIR}/external/googletest/googletest/include
   )
