@@ -19,6 +19,22 @@ Node::Node()
 {
 }
 
+Node::Node( const Node& node )
+  : d_key( node.d_key ), d_index( node.d_index )
+{
+  if( node.d_sons != 0 )
+  {
+    d_sons = new Node*[36]();
+    for( unsigned int i = 0; i < 36; ++i )
+    {
+      if( node.d_sons[i] != 0 )
+      {
+	d_sons[i] = new Node( *node.d_sons[i] );
+      }
+    }
+  }
+}
+
 Node::Node( char key )
   : d_key( key ), d_index( -1 ), d_sons( 0 )
 {
@@ -31,7 +47,7 @@ Node::~Node()
 {
   if( d_sons != 0 )
   {
-    for (unsigned int i = 0; i < 36; ++i)
+    for ( unsigned int i = 0; i < 36; ++i )
     {
       if( d_sons[i] != 0 )
       {
