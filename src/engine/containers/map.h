@@ -138,17 +138,17 @@ template<typename T>
 inline
 std::ostream& operator<<( std::ostream& stream, const Map<T>& map )
 {
-  stream << "\"map\":[\n";
+  stream << "{\n";
   for( unsigned int i = 0; i < map.keys().length(); ++i )
   {
-    stream << "{\"key\":\"" << map.keys().at( i ) << "\", "
-	   << "\"value\":\"" << map[map.keys().at( i )] << "\"}";
+    stream << "\t\"" << map.keys().at( i ) << "\": "
+	   << "\t" << map[map.keys().at( i )];
     if( i != map.keys().length() - 1 )
     {
       stream << ",\n";
     }
   }
-  stream << "\n]\n";
+  stream << "\n}\n";
   return stream;
 }
 
