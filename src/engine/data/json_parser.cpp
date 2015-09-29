@@ -225,7 +225,7 @@ JsonEntity* JsonParser::fromString( const std::string& rawJson,
       break;
     case 't':
     case 'f':
-      return new JsonEntity( parseBoolean( rawJson, index ) );
+      return parseBoolean( rawJson, index );
     case ',':
       ++index;
       break;
