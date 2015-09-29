@@ -21,17 +21,24 @@ class StackGuard
   public:
   // CONSTRUCTORS
   StackGuard( T* guarded );
+    // Default constructor
   StackGuard( T* guarded, IAllocator<T>* allocator );
+    // Constructor with specified allocator
 
   // DESTRUCTOR
   ~StackGuard();
 
   // OPERATORS
   T* operator->() const;
+    // Returns guarded pointer
   bool operator==( bool rhs ) const;
+    // Standard pointer validation
   bool operator!() const;
+    // Returns true if guarded pointer is null
   bool operator!=( bool rhs ) const;
+    // Standard pointer validation
   const T& operator[]( const std::string& key ) const;
+    // Bracket operator
 };
 
 // PRIVATE MEMBER FUNCTIONS
