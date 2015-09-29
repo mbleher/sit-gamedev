@@ -22,23 +22,33 @@ private:
   // PRIVATE MEMBER FUNCTIONS
   static JsonEntity* parseNumber( const std::string& rawJson,
 				  unsigned int& index );
+    // Number parsing
   static void parseString( const std::string& rawJson,
 			   unsigned int& index,
 			   std::string& parsed );
+    // String parsing, different from others because
+    // we want to use it to retrieve keys in object
+    // without creating JsonEntity
   static JsonEntity* parseObject( const std::string& rawJson,
 				  unsigned int& index );
+    // Object parsing
   static JsonEntity* parseArray( const std::string& rawJson,
 				 unsigned int& index );
+    // Array parsing
   static JsonEntity* parseBoolean( const std::string& rawJson,
 				   unsigned int& index );
+    // Boolean parsing
   static void skipWhiteSpaces( const std::string& rawJson,
 			       unsigned int& index );
+    // Iterate over spaces, tabs and carriage return
   static JsonEntity* fromString( const std::string& rawJson,
 				 unsigned int& index );
+    // Returns a new JsonEntity from a raw JSON string
 public:
   // MEMBER FUNCTIONS
   static JsonEntity* fromString( const std::string& rawJson,
 				 sgdm::IAllocator<JsonEntity*>* allocator = 0 );
+    // Returns a new JsonEntity from a raw JSON string
 };
 
 } // End sgdd namespace

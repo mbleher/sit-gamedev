@@ -39,29 +39,39 @@ class JsonEntity
   public:
   // CONSTRUCTORS
   JsonEntity();
+    // Default constructor
   JsonEntity( const JsonEntity& copy );
+    // Copy constructor
   JsonEntity( int i );
   JsonEntity( double d );
   JsonEntity( std::string& s );
   JsonEntity( sgdc::DynamicArray<JsonEntity*>& a );
   JsonEntity( bool b );
   JsonEntity( sgdc::Map<JsonEntity*>& m );
+    // Constructors for each type of JsonEntity
 
   // DESTRUCTOR
   ~JsonEntity();
 
   // ACCESSORS
   EntityTypes type() const;
+    // Gets JsonEntity type
   int asInt() const;
+    // Returns JsonEntity as Integer
   double asDouble() const;
+    // Returns JsonEntity as Double
   const std::string& asString() const;
+    // Returns JsonEntity as String
   sgdc::DynamicArray<JsonEntity*>& asArray() const;
+    // Returns JsonEntity as Array
   bool asBool() const;
+    // Returns JsonEntity as Boolean
 
   // OPERATORS
   const JsonEntity& operator[]( const std::string& key ) const;
+    // Returns value assigned to key (only on Object)
   const JsonEntity& operator[]( int index ) const;
-  //JsonEntity& operator[]( const std::string& key ) const;
+    // Returns value at index (only on Array)
 
   // MEMBER FUNCTIONS
   bool isInt() const;
@@ -70,6 +80,7 @@ class JsonEntity
   bool isArray() const;
   bool isBool() const;
   bool isObject() const;
+    // Returns true if JsonEntity is of this type
 };
 
 } // End sgdd namespace
