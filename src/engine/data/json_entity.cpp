@@ -14,6 +14,31 @@ JsonEntity::JsonEntity()
 {
 }
 
+JsonEntity::JsonEntity( const JsonEntity& copy )
+{
+  switch( copy.d_type )
+  {
+  case INT:
+    d_data.i = copy.d_data.i;
+    break;
+  case DOUBLE:
+    d_data.d = copy.d_data.d;
+    break;
+  case STRING:
+    d_data.s = new std::string( *copy.d_data.s );
+    break;
+  case ARRAY:
+    d_data.a = new sgdc::DynamicArray<JsonEntity*>( *copy.d_data.a );
+    break;
+  case BOOL:
+    d_data.b = copy.d_data.b;
+    break;
+  case OBJECT:
+    d_data.m = new sgdc::Map<JsonEntity*>( *copy.d_data.m );
+    break;
+  }
+}
+
 JsonEntity::JsonEntity( int i )
   : d_type( INT )
 {

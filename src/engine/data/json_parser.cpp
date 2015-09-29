@@ -190,7 +190,8 @@ JsonEntity* JsonParser::parseBoolean( const std::string& rawJson,
 void JsonParser::skipWhiteSpaces( const std::string& rawJson,
 				  unsigned int& index )
 {
-  while( rawJson[index] == ' ' )
+  while( rawJson[index] == ' ' || rawJson[index] == '\t'
+	 || rawJson[index] == '\n' )
   {
     ++index;
   }

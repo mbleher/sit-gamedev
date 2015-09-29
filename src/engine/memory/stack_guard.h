@@ -31,6 +31,7 @@ class StackGuard
   bool operator==( bool rhs ) const;
   bool operator!() const;
   bool operator!=( bool rhs ) const;
+  const T& operator[]( const std::string& key ) const;
 };
 
 // PRIVATE MEMBER FUNCTIONS
@@ -90,6 +91,13 @@ bool StackGuard<T>::operator!=( bool rhs ) const
 {
   return rhs == !d_guarded;
 }
+
+template<typename T>
+const T& StackGuard<T>::operator[]( const std::string& key ) const
+{
+  return ( *d_guarded )[key];
+}
+
 } // End sgdm namespace
 } // End StevensDev namespace
 

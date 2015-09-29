@@ -39,6 +39,7 @@ class JsonEntity
   public:
   // CONSTRUCTORS
   JsonEntity();
+  JsonEntity( const JsonEntity& copy );
   JsonEntity( int i );
   JsonEntity( double d );
   JsonEntity( std::string& s );
