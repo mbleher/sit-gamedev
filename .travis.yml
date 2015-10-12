@@ -9,6 +9,8 @@ before_script:
 script:
    - mkdir _builds
    - cd _builds
+   - mkdir CMakeModules
+   - cd CMakeModules && wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake && cd ..
    - cmake ..
    - make
    - ./runTests
