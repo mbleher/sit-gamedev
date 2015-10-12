@@ -59,8 +59,9 @@ void Input::preTick()
   {
     d_pressed[i] = d_down[i];
   }
-  
-  d_down[InputType::UNKNOWN_KEY] = sf::Keyboard::isKeyPressed( sf::Keyboard::Unknown );
+
+  d_down[InputType::UNKNOWN_KEY] =
+    sf::Keyboard::isKeyPressed( sf::Keyboard::Unknown );
   d_down[InputType::A_KEY] = sf::Keyboard::isKeyPressed( sf::Keyboard::A );
   d_down[InputType::B_KEY] = sf::Keyboard::isKeyPressed( sf::Keyboard::B );
   d_down[InputType::C_KEY] = sf::Keyboard::isKeyPressed( sf::Keyboard::C );
@@ -235,8 +236,7 @@ void Input::preTick()
   d_down[InputType::XBUTTON2_MOUSE] =
     sf::Mouse::isButtonPressed( sf::Mouse::XButton2 );
   d_down[InputType::BUTTONCOUNT_MOUSE] =
-    sf::Mouse::isButtonPressed( sf::Mouse::ButtonCount );
-  
+    sf::Mouse::isButtonPressed( sf::Mouse::ButtonCount );  
 }
 
 void Input::tick( float dtS )

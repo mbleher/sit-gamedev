@@ -18,8 +18,8 @@ class Input : public sgds::ITickable
 public:
 enum InputType
 {
-  UNKNOWN_KEY = -1,
-  A_KEY = 0,
+  UNKNOWN_KEY,
+  A_KEY,
   B_KEY,
   C_KEY,
   D_KEY,
@@ -128,6 +128,7 @@ enum InputType
   XBUTTON2_MOUSE,
   BUTTONCOUNT_MOUSE
 };
+
 private:
   static Input* d_inst;
   bool d_pressed[INPUT_NUMBER]{0};
