@@ -2,6 +2,7 @@
 
 #include "renderer.h"
 #include <iostream>
+#include <fstream>
 
 namespace StevensDev
 {
@@ -63,8 +64,14 @@ void Renderer::setupWindow( int width, int height )
 bool Renderer::loadTexture( const std::string& name, const std::string& path )
 {
   sf::Texture texture;
+  std::string mypath( path );
+  std::ifstream file( mypath );
+  if( !file )
+  {
+    mypath = path.substr( path.find( "/" ) + 1 );
+  }
 
-  if( !texture.loadFromFile( path ) )
+  if( !texture.loadFromFile( mypath ) )
   {
     throw std::invalid_argument( "File not found." );
   }
