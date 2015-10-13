@@ -13,6 +13,11 @@ Input* Input::d_inst = 0;
 
 Input::Input()
 {
+  for( unsigned int i = 0; i < INPUT_NUMBER; ++i )
+  {
+    d_pressed[i] = 0;
+    d_down[i] = 0;
+  }
 }
 
 

@@ -131,8 +131,8 @@ enum InputType
 
 private:
   static Input* d_inst;
-  bool d_pressed[INPUT_NUMBER]{0};
-  bool d_down[INPUT_NUMBER]{0};
+  bool d_pressed[INPUT_NUMBER];
+  bool d_down[INPUT_NUMBER];
 
   // CONSTRUCTORS
   Input();
