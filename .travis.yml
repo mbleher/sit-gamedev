@@ -7,10 +7,7 @@ before_script:
    - sudo cp -r SFML-2.1/* /usr/
    - sudo apt-get install -y libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1 libxrandr2 libxrender1 libsoil1
 script:
-   - mkdir _builds
    - cd _builds
-   - mkdir CMakeModules
-   - cd CMakeModules && wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake && cd ..
    - cmake ..
    - make
    - ./runTests
