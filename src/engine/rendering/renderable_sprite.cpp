@@ -7,8 +7,10 @@ namespace StevensDev
 namespace sgdr
 {
 
-RenderableSprite::RenderableSprite( sf::Sprite sprite )
-  : d_sprite( sprite )
+// CONSTRUCTORS
+
+RenderableSprite::RenderableSprite( const sf::Texture& texture )
+  : d_sprite( texture )
 {
 }
 
@@ -17,18 +19,19 @@ RenderableSprite::RenderableSprite( const RenderableSprite& copy )
 {
 }
 
+
+// DESTRUCTOR
+
 RenderableSprite::~RenderableSprite()
 {
 }
 
+
+// ACCESSORS
+
 const sf::Sprite& RenderableSprite::sprite() const
 {
   return d_sprite;
-}
-
-void RenderableSprite::setPosition( float x, float y )
-{
-  d_sprite.setPosition( x, y );
 }
 
 float RenderableSprite::getPositionX() const
@@ -39,6 +42,13 @@ float RenderableSprite::getPositionX() const
 float RenderableSprite::getPositionY() const
 {
   return d_sprite.getPosition().y;
+}
+
+
+// SETTERS
+void RenderableSprite::setPosition( float x, float y )
+{
+  d_sprite.setPosition( x, y );
 }
 
 void RenderableSprite::move( float x, float y )

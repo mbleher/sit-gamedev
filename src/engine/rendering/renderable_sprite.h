@@ -12,18 +12,25 @@ class RenderableSprite
 private:
   sf::Sprite d_sprite;
 public:
-  RenderableSprite( sf::Sprite sprite );
+  // CONSTRUCTORS
+  RenderableSprite( const sf::Texture& texture );
     // Default constructor
   RenderableSprite( const RenderableSprite& copy );
     // Copy constructor
+
+  // DESTRUCTOR
   ~RenderableSprite();
+
+  // ACCESSORS
   const sf::Sprite& sprite() const;
-  void setPosition( float x, float y );
-    // Sets absolute x/y position
   float getPositionX() const;
     // Gets absolute x position
   float getPositionY() const;
     // Gets absolute y position
+
+  // SETTERS
+  void setPosition( float x, float y );
+    // Sets absolute x/y position
   void move( float x, float y );
     // Increments x by x, y by y
 };

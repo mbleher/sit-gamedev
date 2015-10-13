@@ -33,7 +33,7 @@ Input::~Input()
 
 Input& Input::inst()
 {
-  if( d_inst == 0 )
+  if( !d_inst )
   {
     d_inst = new Input;
   }
