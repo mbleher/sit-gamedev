@@ -116,7 +116,8 @@ T& Map<T>::operator[]( const std::string& key )
 
   if( before != after )
   {
-    d_values.push( 0 );
+    T tmp;
+    d_values.push( tmp );
     d_keys.push( key );
   }
   return d_values[index];
