@@ -18,11 +18,18 @@ private:
   float d_divisions;
   sgdc::DynamicArray<ICollider*> d_colliders;
 public:
+  // CONSTRUCTORS
   NxNSceneGraph();
+    // Default constructor
   NxNSceneGraph( const NxNSceneGraph& copy );
+    // Copy constructor
   NxNSceneGraph( float dimensions, int divisions );
+    // Constructor
+
+  // DESTRUCTOR
   ~NxNSceneGraph();
-  
+
+  // MEMBER FUNCTIONS
   void addCollider( ICollider* collider );
   void removeCollider( ICollider* collider );
 
@@ -36,6 +43,7 @@ public:
 				       unsigned short flags );
   sgdc::DynamicArray<ICollider*> find( const ICollider* collider );
 
+  // INHERITED FUNCTIONS
   void preTick();
   void tick( float dtS );
   void postTick();

@@ -41,6 +41,7 @@ public:
 
   // MEMBER FUNCTIONS
   bool doesCollide( const RectangleBounds& candidate );
+    // Returns true if the object collides with candidate
 };
 } // End sgds namespace
 } // End StevensDev namespace

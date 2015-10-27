@@ -134,6 +134,9 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( const ICollider* collider )
   return filteredColliders;
 }
 
+
+// INHERITED FUNCTIONS
+
 void NxNSceneGraph::preTick()
 {
 }
