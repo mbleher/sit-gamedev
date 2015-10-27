@@ -83,6 +83,11 @@ void RectangleBounds::setDimensions( float width, float height )
   d_height = height;
 }
 
+void RectangleBounds::setPosition( float x, float y )
+{
+  d_x = x;
+  d_y = y;
+}
 
 // MEMBER FUNCTIONS
 

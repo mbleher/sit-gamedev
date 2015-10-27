@@ -38,6 +38,7 @@ public:
   void setWidth( float width );
   void setHeight( float height );
   void setDimensions( float width, float height );
+  void setPosition( float x, float y );
 
   // MEMBER FUNCTIONS
   bool doesCollide( const RectangleBounds& candidate );
