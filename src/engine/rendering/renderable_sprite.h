@@ -1,5 +1,8 @@
 // renderable_sprite.h
 
+#ifndef INCLUDED_RENDERABLE_SPRITE
+# define INCLUDED_RENDERABLE_SPRITE
+
 #include <SFML/Graphics.hpp>
 
 namespace StevensDev
@@ -37,3 +40,5 @@ public:
 
 } // End sgdr namespace
 } // End StevensDev namespace
+
+#endif

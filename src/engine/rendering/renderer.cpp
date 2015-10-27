@@ -1,14 +1,12 @@
 // renderer.cpp
 
 #include "renderer.h"
-#include <iostream>
 #include <fstream>
 
 namespace StevensDev
 {
 namespace sgdr
 {
-
 // CONSTRUCTORS
 
 Renderer::Renderer()
@@ -19,6 +17,7 @@ Renderer::Renderer( const Renderer& copy )
   : d_sprites( copy.d_sprites ), d_textures( copy.d_textures )
 {
 }
+
 
 // DESTRUCTOR
 
@@ -85,7 +84,6 @@ const sf::Texture& Renderer::getTexture( const std::string& name )
 
 bool Renderer::isActive()
 {
-  
   sf::Event event;
   while( d_window.pollEvent( event ) )
   {

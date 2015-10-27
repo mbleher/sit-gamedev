@@ -2,6 +2,9 @@
 
 #include "scene.h"
 #include "input.h"
+#include "actor.h"
+
+#include <queue>
 
 #define DIST 3
 #define MAPW 512
@@ -10,11 +13,18 @@
 int main( int argc, char **argv )
 {
   using namespace StevensDev;
-
+  
   sgdr::Renderer* renderer = new sgdr::Renderer();
-  renderer->loadTexture( "link", "../textures/link_mini.png" ); // 42x35
-  renderer->loadTexture( "map", "../textures/dungeonmap_big.png" ); // 512x446
+  renderer->loadTexture( "link", "../textures/link_mini.png" );
+    // 42x35
+  renderer->loadTexture( "map", "../textures/dungeonmap_big.png" );
+    // 512x446
+  renderer->loadTexture( "sw", "../textures/master_sword_mini.png" );
+    // 30x20
   renderer->setupWindow( MAPW, MAPH );
+
+  std::queue<sgds::Actor*> qa;
+  std::queue<sgdr::RenderableSprite*> qs;
 
   sgds::Scene& scene = sgds::Scene::inst();
   scene.setRenderer( renderer );
@@ -25,7 +35,6 @@ int main( int argc, char **argv )
   renderer->addSprite(
     new sgdr::RenderableSprite( renderer->getTexture( "map" ) ) );
   renderer->addSprite( link );
-
   sgdi::Input& input = sgdi::Input::inst();
 
   while( renderer->isActive() )
@@ -33,7 +42,7 @@ int main( int argc, char **argv )
     renderer->draw();
 
     input.preTick();
-    
+    scene.tick();
     if( input.isDown( sgdi::Input::InputType::RIGHT_KEY ) )
     {
       link->move( DIST, 0 );
@@ -66,7 +75,25 @@ int main( int argc, char **argv )
 	link->move( 0, MAPH - 50 );
       }
     }
-
+    if( input.isDown( sgdi::Input::InputType::A_KEY ) )
+    {
+      sgdr::RenderableSprite* sw =
+	new sgdr::RenderableSprite( renderer->getTexture( "sw" ) );
+      renderer->addSprite( sw );
+      qs.push( sw );
+      sgds::Actor* swA = new sgds::Actor( sw );
+      if ( qa.size() > 10 )
+      {
+	scene.removeTickable( qa.front() );
+	renderer->removeSprite( qs.front() );
+	qa.pop();
+	qs.pop();
+      }
+      //scene.removeTickable( &swA );
+      qa.push( swA );
+      scene.addTickable( swA );
+      sw->setPosition( link->getPositionX(), link->getPositionY() + 10 );
+    }
   }
 
   return 0;

@@ -11,7 +11,7 @@ namespace sgdm
 template<typename T>
 class IAllocator
 {
-  public:
+public:
   virtual T* get( int count ) = 0;
   virtual void release( T*, int count ) = 0;
   virtual void construct( T*, const T& copy ) = 0;
