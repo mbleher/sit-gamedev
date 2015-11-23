@@ -1,4 +1,5 @@
 // event_dispatcher.h
+// Synchronous event broadcasting system
 
 #ifndef INCLUDED_EVENT_DISPATCHER
 # define INCLUDED_EVENT_DISPATCHER
@@ -14,17 +15,33 @@ namespace sgde
 {
 class EventDispatcher : public sgds::ITickable
 {
-private:
+  private:
+  // PRIVATE MEMBERS
   sgdc::DynamicArray<std::function<void( const IEvent& )>*> d_listeners;
-public:
+    // Listeners currently bound
+  sgdc::DynamicArray<std::function<void( const IEvent& )>*> d_addedListeners;
+    // Listeners to be added during post-tick
+  sgdc::DynamicArray<std::function<void( const IEvent& )>*> d_removedListeners;
+    // Listeners to be removed during post-tick
+  public:
+  // CONSTRUCTORS
   EventDispatcher();
+    // Default constructor
   EventDispatcher( const EventDispatcher& copy );
+    // Copy constructor
+
+  // DESTRUCTOR
   ~EventDispatcher();
 
+  // MEMBER FUNCTIONS
   void add( std::function<void( const IEvent& )>* listener );
+    // Adds a listener
   void remove( std::function<void( const IEvent& )>* listener );
+    // Removes a listener
   void dispatch( const IEvent& );
+    // Dispatchs an event to all listeners
 
+  // INHERITED FUNCTIONS
   void preTick();
   void tick( float dtS );
   void postTick();

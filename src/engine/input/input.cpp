@@ -43,17 +43,17 @@ Input& Input::inst()
 
 // MEMBER FUNCTIONS
 
-bool Input::isDown( InputType type )
+bool Input::isDown( InputType type ) const
 {
   return d_down[type];
 }
 
-bool Input::isUp( InputType type )
+bool Input::isUp( InputType type ) const
 {
   return !d_down[type];
 }
 
-bool Input::wasPressed( InputType type )
+bool Input::wasPressed( InputType type ) const
 {
   return d_pressed[type] && !d_down[type];
 }

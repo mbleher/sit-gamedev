@@ -1,4 +1,5 @@
 // ievent.h
+// Payload for messaging from a dispatcher to listeners
 
 #ifndef INCLUDED_IEVENT
 # define INCLUDED_IEVENT
