@@ -93,7 +93,7 @@ void RectangleBounds::setPosition( float x, float y )
 // MEMBER FUNCTIONS
 
 // Credit to silentmatt.com/rectangle-intersection/
-bool RectangleBounds::doesCollide( const RectangleBounds& candidate )
+bool RectangleBounds::doesCollide( const RectangleBounds& candidate ) const
 {
   float ax1 = d_x;
   float ay1 = d_y;

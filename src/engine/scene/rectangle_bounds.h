@@ -41,7 +41,7 @@ public:
   void setPosition( float x, float y );
 
   // MEMBER FUNCTIONS
-  bool doesCollide( const RectangleBounds& candidate );
+  bool doesCollide( const RectangleBounds& candidate ) const;
     // Returns true if the object collides with candidate
 };
 } // End sgds namespace
