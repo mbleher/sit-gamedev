@@ -18,6 +18,8 @@ private:
   static Scene* d_inst;
   sgdr::Renderer* d_renderer;
   sgdc::DynamicArray<ITickable*> d_tickables;
+  sgdc::DynamicArray<ITickable*> d_addedTickables;
+  sgdc::DynamicArray<ITickable*> d_removedTickables;
   time_t d_currentTime;
 
   // CONSTRUCTORS

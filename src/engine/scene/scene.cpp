@@ -36,6 +36,12 @@ void Scene::setRenderer( sgdr::Renderer* renderer )
 
 void Scene::tick()
 {
+  for( unsigned int i = 0; i < d_addedTickables.length(); ++i )
+  {
+    d_tickables.push( d_addedTickables[i] );
+  }
+  d_addedTickables.clear();
+
   time_t previousTime = d_currentTime;
   time( &d_currentTime );
   float deltaTime = previousTime - d_currentTime;
@@ -52,23 +58,30 @@ void Scene::tick()
   {
     d_tickables[i]->postTick();
   }
+
+  for( unsigned int i = 0; i < d_removedTickables.length(); ++i )
+  {
+    bool found = false;
+    for( unsigned int j = 0; !found && j < d_tickables.length(); ++j )
+    {
+      if( d_removedTickables[i] == d_tickables[j] )
+      {
+	d_tickables.removeAt( j );
+	found = true;
+      }
+    }
+  }
+  d_removedTickables.clear();
 }
 
 void Scene::addTickable( ITickable* tickable )
 {
-  d_tickables.push( tickable );
+  d_addedTickables.push( tickable );
 }
 
 void Scene::removeTickable( ITickable* tickable )
 {
-  for( unsigned int i = 0; i < d_tickables.length(); ++i )
-  {
-    if( d_tickables[i] == tickable )
-    {
-      d_tickables.removeAt( i );
-      return;
-    }
-  }
+  d_removedTickables.push( tickable );
 }
 
 } // End sgdc namespace
