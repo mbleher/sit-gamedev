@@ -55,6 +55,8 @@ class DynamicArray
     // Removes and retrieves the last element from collection
   T popFront();
     // Removes and retrieves the first element from collection
+  void clear();
+    // Clears the array
   T at( unsigned int index ) const;
     // Retrieves an element at a location
   T& operator[]( int index );
@@ -209,6 +211,17 @@ T DynamicArray<T>::popFront()
   }
   d_array[d_length--] = 0;
   return elem;
+}
+
+template<typename T>
+inline
+void DynamicArray<T>::clear()
+{
+  for ( unsigned int i = 0; i < d_length; ++i )
+  {
+    d_array[i] = 0;
+  }
+  d_length = 0;
 }
 
 template<typename T>
