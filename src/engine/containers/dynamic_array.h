@@ -1,4 +1,5 @@
 // dynamic_array.h
+// Templated container that automatically adapts its size
 
 #ifndef INCLUDED_DYNAMICARRAY
 # define INCLUDED_DYNAMICARRAY
@@ -18,9 +19,13 @@ class DynamicArray
 {
   private:
   sgdm::IAllocator<T>* d_alloc;
+    // Templated allocator to be used by the DynamicArray
   T* d_array;
+    // Actual array
   unsigned int d_length;
+    // Number of elements in the array
   unsigned int d_size;
+    // Current maximum size of the array
 
   // PRIVATE MEMBER FUNCTIONS
   void doubleArraySize();

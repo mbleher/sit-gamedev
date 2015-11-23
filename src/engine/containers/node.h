@@ -1,4 +1,5 @@
 // node.h
+// Helper class for Map, represents the nodes of the trie
 
 #ifndef INCLUDED_NODE
 # define INCLUDED_NODE
@@ -13,9 +14,13 @@ class Node
 {
   private:
   char d_key;
+    // Key of the current node
   int d_index;
+    // Index of the value in the associated map array
   Node** d_sons;
+    // Array of pointers on children
   static unsigned int d_current;
+    // Index that will be given to a new value
   public:
   // CONSTRUCTORS
   Node();

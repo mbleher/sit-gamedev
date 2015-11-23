@@ -20,20 +20,12 @@ EventDispatcher::~EventDispatcher()
 
 void EventDispatcher::add( std::function<void( const IEvent& )>* listener )
 {
-  d_listeners.push( listener );
+  d_addedListeners.push( listener );
 }
 
 void EventDispatcher::remove( std::function<void( const IEvent& )>* listener )
 {
-  bool found = false;
-  for( unsigned int i = 0; !found && i < d_listeners.length(); ++i )
-  {
-    if( d_listeners[i] == listener )
-    {
-      found = true;
-      d_listeners.removeAt( i );
-    }
-  }
+  d_removedListeners.push( listener );
 }
 
 void EventDispatcher::dispatch( const IEvent& event )
@@ -56,7 +48,24 @@ void EventDispatcher::tick( float dtS )
 
 void EventDispatcher::postTick()
 {
-  return;
+  for( unsigned int i = 0; i < d_addedListeners.length(); ++i )
+  {
+    d_listeners.push( d_addedListeners[i] );
+  }
+  d_addedListeners.clear();
+  for( unsigned int i = 0; i < d_removedListeners.length(); ++i )
+  {
+    bool found = false;
+    for( unsigned int j = 0; !found && j < d_listeners.length(); ++j )
+    {
+      if( d_listeners[j] == d_removedListeners[i] )
+      {
+	found = true;
+	d_listeners.removeAt( j );
+      }
+    }
+  }
+  d_removedListeners.clear();
 }
 
 } // End sgde namespace

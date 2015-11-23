@@ -1,4 +1,5 @@
 // json_entity.h
+// Helper class for JsonParser, represents all different types of JSON objects
 
 #ifndef INCLUDED_JSON_ENTITY
 # define INCLUDED_JSON_ENTITY
@@ -27,6 +28,7 @@ class JsonEntity
 
   private:
   EntityTypes d_type;
+    // Enumeration, represents which type this Entity is
   union
   {
     int i;
@@ -36,6 +38,7 @@ class JsonEntity
     bool b;
     sgdc::Map<JsonEntity*>* m;
   } d_data;
+    // Union that stores the value of the Entity
   public:
   // CONSTRUCTORS
   JsonEntity();
@@ -43,12 +46,17 @@ class JsonEntity
   JsonEntity( const JsonEntity& copy );
     // Copy constructor
   JsonEntity( int i );
+    // Int constructor
   JsonEntity( double d );
+    // Double constructor
   JsonEntity( std::string& s );
+    // String constructor
   JsonEntity( sgdc::DynamicArray<JsonEntity*>& a );
+    // Array constructor
   JsonEntity( bool b );
+    // Boolean constructor
   JsonEntity( sgdc::Map<JsonEntity*>& m );
-    // Constructors for each type of JsonEntity
+    // Map constructor
 
   // DESTRUCTOR
   ~JsonEntity();

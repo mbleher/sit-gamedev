@@ -1,4 +1,5 @@
 // map.h
+// Templated map that contains key-value pairs, implemented with a trie
 
 #ifndef INCLUDED_MAP
 # define INCLUDED_MAP
@@ -17,9 +18,13 @@ class Map
 {  
   private:
   sgdm::IAllocator<T>* d_alloc;
+    // Templated allocator that is used in the array for the values
   DynamicArray<std::string> d_keys;
+    // Array that contains all keys currently stored in the map
   DynamicArray<T> d_values;
+    // Array that contains all values currently stored in the map
   Node d_root;
+    // Root of the trie
   
   public:
   // CONSTRUCTORS

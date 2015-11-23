@@ -1,4 +1,5 @@
 // json_parser.h
+// Parser for JSON strings
 
 #ifndef INCLUDED_JSON_PARSER
 # define INCLUDED_JSON_PARSER
@@ -18,6 +19,7 @@ class JsonParser
 {
 private:
   static sgdm::IAllocator<JsonEntity*>* d_alloc;
+    // Pointer to JsonEntity allocator
 
   // PRIVATE MEMBER FUNCTIONS
   static JsonEntity* parseNumber( const std::string& rawJson,
