@@ -52,7 +52,8 @@ void NxNSceneGraph::removeCollider( ICollider* collider )
 }
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
-						    float width, float height )
+						    float width,
+						    float height ) const
 {
   sgdc::DynamicArray<ICollider*> filteredColliders;
 
@@ -69,7 +70,7 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
 						    float width, float height,
-						    unsigned short flags )
+						    unsigned short flags ) const
 {
   sgdc::DynamicArray<ICollider*> filteredColliders;
 
@@ -86,7 +87,7 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
 }
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find(
-  const RectangleBounds& bounds )
+  const RectangleBounds& bounds ) const
 {
   sgdc::DynamicArray<ICollider*> filteredColliders;
 
@@ -102,7 +103,7 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find(
 }
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find(
-  const RectangleBounds& bounds, unsigned short flags )
+  const RectangleBounds& bounds, unsigned short flags ) const
 {
   sgdc::DynamicArray<ICollider*> filteredColliders;
 
@@ -119,6 +120,7 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find(
 }
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( const ICollider* collider )
+  const
 {
   sgdc::DynamicArray<ICollider*> filteredColliders;
 

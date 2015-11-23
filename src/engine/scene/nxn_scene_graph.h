@@ -34,14 +34,14 @@ public:
   void removeCollider( ICollider* collider );
 
   sgdc::DynamicArray<ICollider*> find( float x, float y,
-				       float width, float height );
+				       float width, float height ) const;
   sgdc::DynamicArray<ICollider*> find( float x, float y,
 				       float width, float height,
-				       unsigned short flags );
-  sgdc::DynamicArray<ICollider*> find( const RectangleBounds& bounds );
+				       unsigned short flags ) const;
+  sgdc::DynamicArray<ICollider*> find( const RectangleBounds& bounds ) const;
   sgdc::DynamicArray<ICollider*> find( const RectangleBounds& bounds,
-				       unsigned short flags );
-  sgdc::DynamicArray<ICollider*> find( const ICollider* collider );
+				       unsigned short flags ) const;
+  sgdc::DynamicArray<ICollider*> find( const ICollider* collider ) const;
 
   // INHERITED FUNCTIONS
   void preTick();
