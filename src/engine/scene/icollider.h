@@ -1,4 +1,5 @@
 // icollider.h
+// Interface for objects that can collide
 
 #ifndef INCLUDED_ICOLLIDER
 # define INCLUDED_ICOLLIDER
@@ -13,7 +14,9 @@ class ICollider
 {
 private:
   RectangleBounds& d_bounds;
+    // Rectangle that represents the boundaries of this object
   unsigned short d_flags;
+    // Flags that specify with which objects to collide
 public:
   // ACCESSORS
   virtual RectangleBounds& bounds() const = 0;

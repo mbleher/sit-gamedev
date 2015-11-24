@@ -1,4 +1,5 @@
 // scene.h
+// Singleton that is responsible for all tickable objects
 
 #ifndef INCLUDED_SCENE
 # define INCLUDED_SCENE
@@ -14,20 +15,29 @@ namespace sgds
 {
 class Scene
 {
-private:
+  private:
   static Scene* d_inst;
+    // Single instance of Scene
   sgdr::Renderer* d_renderer;
+    // Pointer on renderer responsible for displaying tickables
   sgdc::DynamicArray<ITickable*> d_tickables;
+    // Array with current tickables
   sgdc::DynamicArray<ITickable*> d_addedTickables;
+    // Array with the tickables to add to the scene
   sgdc::DynamicArray<ITickable*> d_removedTickables;
+    // Array with the tickables to remove from the scene
   time_t d_currentTime;
+    // Keeps the time to compute the delta for the tick function
 
   // CONSTRUCTORS
   Scene();
+    // Default constructor
   Scene( const Scene& copy ) = delete;
+    // Copy constructor
   Scene& operator=( const Scene& assign ) = delete;
-public:
+    // Assignment operator
 
+  public:
   // DESTRUCTOR
   ~Scene();
 

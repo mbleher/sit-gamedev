@@ -1,4 +1,5 @@
 // itickable.h
+// Interface for tickable objects
 
 #ifndef INCLUDED_ITICKABLE
 # define INCLUDED_ITICKABLE

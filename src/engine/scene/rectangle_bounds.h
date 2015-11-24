@@ -1,4 +1,5 @@
 // rectangle_bounds.h
+// Boundaries of a collidable object
 
 #ifndef INCLUDED_RECTANGLE_BOUNDS
 # define INCLUDED_RECTANGLE_BOUNDS
@@ -9,12 +10,16 @@ namespace sgds
 {
 class RectangleBounds
 {
-private:
+  private:
   float d_x;
+    // X coordinate of the origin (left-up) point
   float d_y;
+    // Y coordinate of the origin (left-up) point
   float d_width;
+    // Width of the rectangle
   float d_height;
-public:
+    // Height of the rectangle
+  public:
   // CONSTRUCTORS
   RectangleBounds();
     // Default constructor

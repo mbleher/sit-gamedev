@@ -1,4 +1,5 @@
 // nxn_scene_graph.h
+// Grid that holds all the colliders
 
 #ifndef INCLUDED_NXN_SCENE_GRAPH
 # define INCLUDED_NXN_SCENE_GRAPH
@@ -13,11 +14,18 @@ namespace sgds
 {
 class NxNSceneGraph : public ITickable
 {
-private:
+  private:
   float d_dimensions;
+    // Dimensions of the scene
   float d_divisions;
+    // Number of divisions for the grid
   sgdc::DynamicArray<ICollider*> d_colliders;
-public:
+    // Array of colliders to compare
+  sgdc::DynamicArray<ICollider*> d_addedColliders;
+    // Array of colliders to be added during post-tick
+  sgdc::DynamicArray<ICollider*> d_removedColliders;
+    // Array of colliders to be removed during post-tick
+  public:
   // CONSTRUCTORS
   NxNSceneGraph();
     // Default constructor
