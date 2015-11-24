@@ -34,21 +34,12 @@ NxNSceneGraph::~NxNSceneGraph()
 
 void NxNSceneGraph::addCollider( ICollider* collider )
 {
-  d_colliders.push( collider );
+  d_addedColliders.push( collider );
 }
 
 void NxNSceneGraph::removeCollider( ICollider* collider )
 {
-  bool found = false;
-
-  for( unsigned int i = 0; !found && i < d_colliders.length(); ++i )
-  {
-    if( collider == d_colliders[i] )
-    {
-      d_colliders.removeAt( i );
-      found = true;
-    }
-  }
+  d_removedColliders.push( collider );
 }
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
@@ -77,7 +68,7 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
   for( unsigned int i = 0; i < d_colliders.length(); ++i )
   {
     if( d_colliders[i]->doesCollide( RectangleBounds( x, y, width, height ) )
-	&& flags == d_colliders[i]->flags() )
+	&& ( flags & d_colliders[i]->flags() ) )
     {
       filteredColliders.push( d_colliders[i] );
     }
@@ -110,7 +101,7 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find(
   for( unsigned int i = 0; i < d_colliders.length(); ++i )
   {
     if( d_colliders[i]->doesCollide( bounds )
-	&& flags == d_colliders[i]->flags() )
+	&& ( flags & d_colliders[i]->flags() ) )
     {
       filteredColliders.push( d_colliders[i] );
     }
@@ -149,6 +140,26 @@ void NxNSceneGraph::tick( float dtS )
 
 void NxNSceneGraph::postTick()
 {
+  for( unsigned int i = 0; i < d_addedColliders.length(); ++i )
+  {
+    d_colliders.push( d_addedColliders[i] );
+  }
+  d_addedColliders.clear();
+
+  for( unsigned int i = 0; i < d_addedColliders.length(); ++i )
+  {
+    bool found = false;
+
+    for( unsigned int j = 0; !found && j < d_colliders.length(); ++j )
+    {
+      if( d_removedColliders[i] == d_colliders[j] )
+      {
+	d_colliders.removeAt( j );
+	found = true;
+      }
+    }
+  }
+  d_removedColliders.clear();
 }
 
 } // End sgds namespace
