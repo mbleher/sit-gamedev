@@ -11,6 +11,9 @@ EventDispatcher::EventDispatcher()
 }
 
 EventDispatcher::EventDispatcher( const EventDispatcher& copy )
+  : d_listeners( copy.d_listeners ),
+    d_addedListeners( copy.d_addedListeners ),
+    d_removedListeners( copy.d_removedListeners )
 {
 }
 

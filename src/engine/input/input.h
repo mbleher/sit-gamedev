@@ -1,4 +1,5 @@
 // input.h
+// Wrapper around SFML input handler
 
 #ifndef INCLUDED_INPUT
 # define INCLUDED_INPUT
@@ -129,10 +130,13 @@ enum InputType
   BUTTONCOUNT_MOUSE
 };
 
-private:
+  private:
   static Input* d_inst;
+    // Pointer to Singleton instance
   bool d_pressed[INPUT_NUMBER];
+    // Array that holds the keys that have been recently pressed
   bool d_down[INPUT_NUMBER];
+    // Array that holds the keys that are currently pressed
 
   // CONSTRUCTORS
   Input();
@@ -141,7 +145,7 @@ private:
     // Copy constructor
   Input& operator=( const Input& assign ) = delete;
     // Assignment operator
-public:
+  public:
   // Destructor
   ~Input();
 
@@ -149,11 +153,11 @@ public:
   static Input& inst();
 
   // MEMBER FUNCTIONS
-  bool isDown( InputType type );
+  bool isDown( InputType type ) const;
     // Current state down
-  bool isUp( InputType type );
+  bool isUp( InputType type ) const;
     // Current state up
-  bool wasPressed( InputType type );
+  bool wasPressed( InputType type ) const;
     // Was down and now is up
   void preTick();
     // Poll input state at this point, setup internal state

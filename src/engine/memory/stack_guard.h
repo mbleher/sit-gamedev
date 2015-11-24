@@ -1,4 +1,5 @@
 // stack_guard.h
+// Wrapper around pointer, to ensure memory freeing at the end of a scope
 
 #ifndef INCLUDED_STACK_GUARD
 # define INCLUDED_STACK_GUARD

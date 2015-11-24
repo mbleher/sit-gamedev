@@ -1,4 +1,6 @@
 // counting_allocator.h
+// Implementation of an allocator that keeps track of the number of allocations
+// and releases done by allocator and by type
 
 #ifndef INCLUDED_COUNTING_ALLOCATOR
 # define INCLUDED_COUNTING_ALLOCATOR
@@ -15,9 +17,13 @@ class CountingAllocator : public DefaultAllocator<T>
 {
   private:
   int d_allocationCount;
+    // Number of allocations done by this allocator
   int d_releaseCount;
+    // Number of releases done by this allocator
   static int d_totalAllocationCount;
+    // Number of allocations done for that type
   static int d_totalReleaseCount;
+    // Number of releases done for that type
 
   public:
   // CONSTRUCTORS

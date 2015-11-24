@@ -1,4 +1,5 @@
 // default_allocator.h
+// Implementation of the default allocator
 
 #ifndef INCLUDED_DEFAULT_ALLOCATOR
 # define INCLUDED_DEFAULT_ALLOCATOR

@@ -1,4 +1,5 @@
 // iallocator.h
+// Interface for allocator
 
 #ifndef INCLUDED_IALLOCATOR
 # define INCLUDED_IALLOCATOR
