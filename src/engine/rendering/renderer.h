@@ -1,4 +1,5 @@
 // renderer.h
+// Responsible for rendering the sprites and handling the graphic window
 
 #ifndef INCLUDED_RENDERER
 # define INCLUDED_RENDERER
@@ -16,11 +17,14 @@ namespace sgdr
 {
 class Renderer
 {
-private:
+  private:
   sf::RenderWindow d_window;
+    // Where to render the sprites
   sgdc::DynamicArray<RenderableSprite*> d_sprites;
+    // Array of sprites
   sgdc::Map<sf::Texture> d_textures;
-public:
+    // Map that holds textures
+  public:
   // CONSTRUCTORS
   Renderer();
     // Default constructor

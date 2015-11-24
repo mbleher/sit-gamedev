@@ -1,4 +1,5 @@
 // renderable_sprite.h
+// Wrapper around a SFML Sprite that will be displayed by the renderer
 
 #ifndef INCLUDED_RENDERABLE_SPRITE
 # define INCLUDED_RENDERABLE_SPRITE
@@ -12,9 +13,10 @@ namespace sgdr
 
 class RenderableSprite
 {
-private:
+  private:
   sf::Sprite d_sprite;
-public:
+    // Actual sprite
+  public:
   // CONSTRUCTORS
   RenderableSprite( const sf::Texture& texture );
     // Default constructor
@@ -31,7 +33,7 @@ public:
   float getPositionY() const;
     // Gets absolute y position
 
-  // SETTERS
+  // MUTATORS
   void setPosition( float x, float y );
     // Sets absolute x/y position
   void move( float x, float y );
