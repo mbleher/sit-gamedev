@@ -44,6 +44,16 @@ float RenderableSprite::getPositionY() const
   return d_sprite.getPosition().y;
 }
 
+float RenderableSprite::width() const
+{
+  return d_sprite.getLocalBounds().width;
+}
+
+float RenderableSprite::height() const
+{
+  return d_sprite.getLocalBounds().height;
+}
+
 
 // SETTERS
 void RenderableSprite::setPosition( float x, float y )

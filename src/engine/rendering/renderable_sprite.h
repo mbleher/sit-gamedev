@@ -32,6 +32,10 @@ class RenderableSprite
     // Gets absolute x position
   float getPositionY() const;
     // Gets absolute y position
+  float width() const;
+    // Gets width
+  float height() const;
+    // Gets height
 
   // MUTATORS
   void setPosition( float x, float y );
