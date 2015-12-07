@@ -15,8 +15,8 @@ Actor::Actor( const Actor& copy )
 {
 }
 
-Actor::Actor( sgdr::RenderableSprite* sprite )
-  : d_sprite( sprite )
+Actor::Actor( sgdr::RenderableSprite* sprite, ActorType type )
+  : d_sprite( sprite ), d_type( type )
 {
   d_cBounds = new CollidableBounds( sprite->getPositionX(),
 				    sprite->getPositionY(),

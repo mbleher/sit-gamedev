@@ -14,13 +14,21 @@ namespace sgds
 
 class Actor : public ITickable
 {
+public:
+enum ActorType
+{
+  PLAYER,
+  NPC,
+  WALL
+};
 private:
   sgdr::RenderableSprite* d_sprite;
+  ActorType d_type;
   CollidableBounds* d_cBounds;
 public:
   Actor();
   Actor( const Actor& copy );
-  Actor( sgdr::RenderableSprite* sprite );
+  Actor( sgdr::RenderableSprite* sprite, ActorType type );
   ~Actor();
   void setSprite( sgdr::RenderableSprite* sprite );
   sgdr::RenderableSprite* sprite() const;
