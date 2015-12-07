@@ -44,6 +44,7 @@ class Scene
   // ACCESSORS
   static Scene& inst();
     // Gets scene instance
+  sgdr::Renderer* renderer() const;
 
   // MUTATORS
   void setRenderer( sgdr::Renderer* renderer );
@@ -56,6 +57,8 @@ class Scene
     // Adds a tickable
   void removeTickable( ITickable* tickable );
     // Removes a tickable
+  void setup();
+    // Loads textures, prepares rendering window, create actors
 };
 } // End sgdc namespace
 } // End StevensDev namespace
