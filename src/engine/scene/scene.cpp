@@ -120,6 +120,11 @@ void Scene::setup()
 						       sgds::Actor::PLAYER,
 						       map->width() / 2 - 17,
 						       map->height() - 60 );
+
+  // Walls setup
+
+  
+
 }
 
 } // End sgdc namespace

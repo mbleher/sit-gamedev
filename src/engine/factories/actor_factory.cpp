@@ -28,19 +28,19 @@ sgds::Actor* ActorFactory::createActor( std::string texture,
 					float initX, float initY )
 {
   sgds::Scene& scene = sgds::Scene::inst();
-  sgdr::RenderableSprite* sprite =
-    new sgdr::RenderableSprite( scene.renderer()->getTexture( texture ) );
-  scene.renderer()->addSprite( sprite );
   if ( type == sgds::Actor::ActorType::PLAYER )
   {
+    sgdr::RenderableSprite* sprite =
+      new sgdr::RenderableSprite( scene.renderer()->getTexture( texture ) );
+    sgds::Actor* actor = new sgds::Actor( sprite, type );
+    scene.renderer()->addSprite( sprite );
     mgc::PlayerController* playerController = new mgc::PlayerController();
-    playerController->setSprite( sprite );
-    playerController->sprite()->setPosition( initX, initY );
+    playerController->setActor( actor );
+    sprite->setPosition( initX, initY );
     scene.addTickable( playerController );
+    scene.addTickable( actor );
+    d_actors.push( actor );
   }
-  sgds::Actor* actor = new sgds::Actor( sprite, type );
-  scene.addTickable( actor );
-  d_actors.push( actor );
 }
 } // End sgdf namespace
 } // End StevensDev namespace
