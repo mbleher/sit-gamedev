@@ -4,6 +4,7 @@
 #include "scene.h"
 #include "dynamic_array.h"
 
+
 namespace StevensDev
 {
 namespace sgds
@@ -13,17 +14,29 @@ Actor::Actor()
 }
 
 Actor::Actor( const Actor& copy )
-  : d_sprite( copy.d_sprite ), d_cBounds( copy.d_cBounds )
+  : d_sprite( copy.d_sprite ), d_cBounds( copy.d_cBounds ),
+    d_onItem( std::bind( &Actor::onItem, this,
+			 std::placeholders::_1 ) )
 {
 }
 
 Actor::Actor( sgdr::RenderableSprite* sprite, ActorType type )
-  : d_sprite( sprite ), d_type( type )
+  : d_sprite( sprite ), d_type( type ),
+    d_onItem( std::bind( &Actor::onItem, this,
+			 std::placeholders::_1 ) )
 {
+  sgde::EventDispatcher& dispatcher = sgde::EventBus::inst();
+  dispatcher.add( "item", &d_onItem );
+  if( type == PLAYER )
+  {
+    d_hp = 3;
+  }
+
   d_cBounds = new CollidableBounds( sprite->getPositionX(),
 				    sprite->getPositionY(),
 				    sprite->width(),
-				    sprite->height() );
+				    sprite->height(),
+				    type );
 }
 
 Actor::~Actor()
@@ -33,7 +46,14 @@ Actor::~Actor()
 
 void Actor::setSprite( sgdr::RenderableSprite* sprite )
 {
+  Scene& scene = Scene::inst();
+  float prevX = d_sprite->getPositionX();
+  float prevY = d_sprite->getPositionY();
+
+  scene.renderer()->removeSprite( d_sprite );
   d_sprite = sprite;
+  d_sprite->setPosition( prevX, prevY );
+  scene.renderer()->addSprite( d_sprite );
   d_cBounds->bounds().setX( sprite->getPositionX() );
   d_cBounds->bounds().setY( sprite->getPositionY() );
   d_cBounds->bounds().setWidth( sprite->width() );
@@ -71,12 +91,27 @@ void Actor::move( float x, float y )
     {
       move( - scene.graph()->mapWidth(), 0 );
     }
-    /*
-    if( d_cBounds->bounds.y() < 40 )
+  }
+}
+
+void Actor::onItem( const sgde::IEvent& event )
+{
+  static bool first = true;
+  Scene& scene = Scene::inst();
+
+  if( first && d_type == PLAYER )
+  {    
+    setSprite( new sgdr::RenderableSprite(
+		 scene.renderer()->getTexture( "link" ) ) );
+    first = false;
+  }
+  else
+  {
+    if( d_type == ITEM )
     {
-      move( 0,  );
+      scene.renderer()->removeSprite( d_sprite );
+      scene.removeTickable( this );
     }
-    */
   }
 }
 
