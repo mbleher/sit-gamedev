@@ -1,6 +1,7 @@
 // nxn_scene_graph.cpp
 
 #include "nxn_scene_graph.h"
+#include "event_bus.h"
 #include <iostream>
 
 namespace StevensDev
@@ -150,7 +151,8 @@ sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( const ICollider* collider )
   for( unsigned int i = 0; i < d_colliders.length(); ++i )
   {
     if( d_colliders[i]->doesCollide( collider->bounds() )
-	&& d_colliders[i] != collider )
+	&& d_colliders[i] != collider
+	&& ( collider->flags() & d_colliders[i]->flags() ) )
     {
       filteredColliders.push( d_colliders[i] );
     }
@@ -168,6 +170,25 @@ void NxNSceneGraph::preTick()
 
 void NxNSceneGraph::tick( float dtS )
 {
+  sgde::EventDispatcher& dispatcher = sgde::EventBus::inst();
+  // The first collider in the array will always be the player
+  if( d_colliders.length() > 1 )
+  {
+    if( d_colliders[0]->bounds().y() < 70 )
+    {
+      sgde::IEvent event( "item" );
+      dispatcher.dispatch( event );
+    }
+    sgdc::DynamicArray<ICollider*> colliders = find( d_colliders[0] );
+    for( unsigned int i = 0; i < colliders.length(); ++i )
+    {
+      if( colliders[i]->flags() == 3 )
+      {
+	sgde::IEvent event( "hit" );
+	dispatcher.dispatch( event );
+      }
+    }
+  }
 }
 
 void NxNSceneGraph::postTick()

@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "actor_factory.h"
 #include "collidable_bounds.h"
+#include "event_bus.h"
 
 namespace StevensDev
 {
@@ -116,6 +117,8 @@ void Scene::setup()
 {
   d_renderer->loadTexture( "link", "../textures/link_mini.png" );
   d_renderer->loadTexture( "map", "../textures/dungeonmap_big.png" );
+  d_renderer->loadTexture( "linkns", "../textures/link_nsw.png" );
+  d_renderer->loadTexture( "sword", "../textures/master_sword_mini.png" );
 
   sgdr::RenderableSprite* map =
     new sgdr::RenderableSprite( d_renderer->getTexture( "map" ) );
@@ -125,11 +128,16 @@ void Scene::setup()
   float h = map->height();
   d_graph->setMapWidth( w );
   d_graph->setMapHeight( h );
-  sgds::Actor* link = sgdf::ActorFactory::createActor( "link",
+  sgds::Actor* link = sgdf::ActorFactory::createActor( "linkns",
 						       sgds::Actor::PLAYER,
 						       w / 2 - 12,
 						       h - 60 );
+  sgds::Actor* sword = sgdf::ActorFactory::createActor( "sword",
+							sgds::Actor::ITEM,
+							245,
+							40 );
   d_graph->addCollider( link->cBounds() );
+  d_graph->addCollider( sword->cBounds() );
 
   // Walls setup
   d_graph->addWall( 0, 0, w, 30 );
@@ -147,6 +155,10 @@ void Scene::setup()
   d_graph->addWall( 207, 125, 232, 184 );
   d_graph->addWall( 300, 125, 322, 184 );
   addTickable( d_graph );
+
+  sgde::EventDispatcher& dispatcher = sgde::EventBus::inst();
+  addTickable( &dispatcher );
+
 }
 
 } // End sgdc namespace
