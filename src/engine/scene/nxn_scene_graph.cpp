@@ -28,6 +28,10 @@ NxNSceneGraph::NxNSceneGraph( float dimensions, int divisions )
 
 NxNSceneGraph::~NxNSceneGraph()
 {
+  for( unsigned int i = 0; i < d_walls.length(); ++i )
+  {
+    delete d_walls[i];
+  }
 }
 
 
@@ -41,6 +45,13 @@ void NxNSceneGraph::addCollider( ICollider* collider )
 void NxNSceneGraph::removeCollider( ICollider* collider )
 {
   d_removedColliders.push( collider );
+}
+
+void NxNSceneGraph::addWall( float x1, float y1, float x2, float y2 )
+{
+  CollidableBounds* wall = new CollidableBounds( x1, y1, x2 - x1, y2 - y1 );
+  addCollider( wall );
+  d_walls.push( wall );
 }
 
 sgdc::DynamicArray<ICollider*> NxNSceneGraph::find( float x, float y,
@@ -137,14 +148,6 @@ void NxNSceneGraph::preTick()
 
 void NxNSceneGraph::tick( float dtS )
 {
-  if ( d_colliders.length() > 1 )
-  {
-    sgdc::DynamicArray<ICollider*> array = find( d_colliders[0] );
-    if ( array.length() > 0 )
-    {
-      std::cout << "Collision!" << std::endl;
-    }
-  }
 }
 
 void NxNSceneGraph::postTick()

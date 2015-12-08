@@ -21,7 +21,7 @@ class Scene
     // Single instance of Scene
   sgdr::Renderer* d_renderer;
     // Pointer on renderer responsible for displaying tickables
-  sgds::NxNSceneGraph d_graph;
+  sgds::NxNSceneGraph* d_graph;
     // Graph that holds the collidables
   sgdc::DynamicArray<ITickable*> d_tickables;
     // Array with current tickables
@@ -48,7 +48,7 @@ class Scene
   static Scene& inst();
     // Gets scene instance
   sgdr::Renderer* renderer() const;
-  NxNSceneGraph graph() const;
+  NxNSceneGraph* graph() const;
 
   // MUTATORS
   void setRenderer( sgdr::Renderer* renderer );

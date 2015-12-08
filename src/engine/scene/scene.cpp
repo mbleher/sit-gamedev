@@ -15,7 +15,7 @@ Scene* Scene::d_inst = 0;
 
 Scene::Scene()
   : d_renderer( new sgdr::Renderer() ),
-    d_graph( NxNSceneGraph() )
+    d_graph( new NxNSceneGraph() )
 {
   time( &d_currentTime );
 }
@@ -27,6 +27,7 @@ Scene::~Scene()
 {
   delete d_inst;
   delete d_renderer;
+  delete d_graph;
 }
 
 
@@ -46,7 +47,7 @@ sgdr::Renderer* Scene::renderer() const
   return d_renderer;
 }
 
-NxNSceneGraph Scene::graph() const
+NxNSceneGraph* Scene::graph() const
 {
   return d_graph;
 }
@@ -120,15 +121,30 @@ void Scene::setup()
     new sgdr::RenderableSprite( d_renderer->getTexture( "map" ) );
   d_renderer->setupWindow( map->width(), map->height() );
   d_renderer->addSprite( map );
+  float w = map->width();
+  float h = map->height();
   sgds::Actor* link = sgdf::ActorFactory::createActor( "link",
 						       sgds::Actor::PLAYER,
-						       map->width() / 2 - 17,
-						       map->height() - 60 );
-  d_graph.addCollider( link->cBounds() );
+						       w / 2 - 12,
+						       h - 60 );
+  d_graph->addCollider( link->cBounds() );
+
   // Walls setup
-  CollidableBounds* wall = new CollidableBounds( 0, 0, 10, 10 );
-  d_graph.addCollider( wall );
-  addTickable( &d_graph );
+  d_graph->addWall( 0, 0, w, 30 );
+  d_graph->addWall( 0, 30, 240, 72 );
+  d_graph->addWall( 290, 30, w, 72 );
+  d_graph->addWall( 40, 72, 170, 219 );
+  d_graph->addWall( 360, 72, 491, 219 );
+  d_graph->addWall( 0, 281, 73, h );
+  d_graph->addWall( 73, 390, 240, h );
+  d_graph->addWall( 240, 431, 290, h );
+  d_graph->addWall( 290, 377, 455, h );
+  d_graph->addWall( 455, 281, w, h );
+  d_graph->addWall( 110, 284, 166, 344 );
+  d_graph->addWall( 360, 284, 415, 344 );
+  d_graph->addWall( 207, 125, 232, 184 );
+  d_graph->addWall( 300, 125, 322, 184 );
+  addTickable( d_graph );
 }
 
 } // End sgdc namespace

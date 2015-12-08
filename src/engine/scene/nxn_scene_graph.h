@@ -7,6 +7,7 @@
 #include "itickable.h"
 #include "dynamic_array.h"
 #include "icollider.h"
+#include "collidable_bounds.h"
 
 namespace StevensDev
 {
@@ -25,6 +26,7 @@ class NxNSceneGraph : public ITickable
     // Array of colliders to be added during post-tick
   sgdc::DynamicArray<ICollider*> d_removedColliders;
     // Array of colliders to be removed during post-tick
+  sgdc::DynamicArray<CollidableBounds*> d_walls;
   public:
   // CONSTRUCTORS
   NxNSceneGraph();
@@ -40,6 +42,8 @@ class NxNSceneGraph : public ITickable
   // MEMBER FUNCTIONS
   void addCollider( ICollider* collider );
   void removeCollider( ICollider* collider );
+
+  void addWall( float x1, float y1, float x2, float y2 );
 
   sgdc::DynamicArray<ICollider*> find( float x, float y,
 				       float width, float height ) const;

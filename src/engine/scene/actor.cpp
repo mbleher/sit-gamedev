@@ -1,6 +1,8 @@
 // actor.cpp
 
 #include "actor.h"
+#include "scene.h"
+#include "dynamic_array.h"
 
 namespace StevensDev
 {
@@ -50,8 +52,17 @@ CollidableBounds* Actor::cBounds() const
 
 void Actor::move( float x, float y )
 {
-  d_sprite->move( x, y );
+  Scene& scene = Scene::inst();
   d_cBounds->move( x, y );
+  sgdc::DynamicArray<ICollider*> array = scene.graph()->find( d_cBounds );
+  if( array.length() > 0 )
+  {
+    d_cBounds->move( -x, -y );
+  }
+  else
+  {
+    d_sprite->move( x, y );
+  }
 }
 
 void Actor::preTick()
