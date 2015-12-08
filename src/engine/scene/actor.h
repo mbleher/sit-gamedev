@@ -33,6 +33,8 @@ public:
   void setSprite( sgdr::RenderableSprite* sprite );
   sgdr::RenderableSprite* sprite() const;
   CollidableBounds* cBounds() const;
+  void move( float x, float y );
+
   virtual void preTick();
   virtual void tick( float dtS );
   virtual void postTick();

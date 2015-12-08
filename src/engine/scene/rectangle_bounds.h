@@ -44,6 +44,7 @@ class RectangleBounds
   void setHeight( float height );
   void setDimensions( float width, float height );
   void setPosition( float x, float y );
+  void move( float x, float y );
 
   // MEMBER FUNCTIONS
   bool doesCollide( const RectangleBounds& candidate ) const;

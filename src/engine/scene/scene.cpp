@@ -2,8 +2,7 @@
 
 #include "scene.h"
 #include "actor_factory.h"
-#include "player_controller.h"
-#include <iostream>
+#include "collidable_bounds.h"
 
 namespace StevensDev
 {
@@ -15,7 +14,8 @@ Scene* Scene::d_inst = 0;
 // CONSTRUCTORS
 
 Scene::Scene()
-  : d_renderer( new sgdr::Renderer() )
+  : d_renderer( new sgdr::Renderer() ),
+    d_graph( NxNSceneGraph() )
 {
   time( &d_currentTime );
 }
@@ -46,6 +46,10 @@ sgdr::Renderer* Scene::renderer() const
   return d_renderer;
 }
 
+NxNSceneGraph Scene::graph() const
+{
+  return d_graph;
+}
 
 // MUTATORS
 
@@ -120,11 +124,11 @@ void Scene::setup()
 						       sgds::Actor::PLAYER,
 						       map->width() / 2 - 17,
 						       map->height() - 60 );
-
+  d_graph.addCollider( link->cBounds() );
   // Walls setup
-
-  
-
+  CollidableBounds* wall = new CollidableBounds( 0, 0, 10, 10 );
+  d_graph.addCollider( wall );
+  addTickable( &d_graph );
 }
 
 } // End sgdc namespace

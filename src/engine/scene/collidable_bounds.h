@@ -13,7 +13,7 @@ class CollidableBounds : public ICollider
 {
 public:
   CollidableBounds();
-  CollidableBounds( float x, float y, float width, float height, unsigned short flags = 0 );
+  CollidableBounds( float x, float y, float width, float height, unsigned short flags = 1 );
   CollidableBounds( const CollidableBounds& copy );
   ~CollidableBounds();
   RectangleBounds& bounds();
@@ -26,6 +26,8 @@ public:
   const bool canCollide( unsigned short flags ) const;
   bool doesCollide( const RectangleBounds& candidate );
   const bool doesCollide( const RectangleBounds& candidate ) const;
+
+  void move( float x, float y );
 };
 
 } // End sgds namespace

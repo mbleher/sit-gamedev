@@ -48,6 +48,12 @@ CollidableBounds* Actor::cBounds() const
   return d_cBounds;
 }
 
+void Actor::move( float x, float y )
+{
+  d_sprite->move( x, y );
+  d_cBounds->move( x, y );
+}
+
 void Actor::preTick()
 {
 }

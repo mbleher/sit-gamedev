@@ -16,7 +16,6 @@ PlayerController::PlayerController()
 }
 
 PlayerController::PlayerController( const PlayerController& copy )
-//  : d_sprite( copy.d_sprite )
   : d_actor( copy.d_actor )
 {
 }
@@ -47,22 +46,22 @@ void PlayerController::tick( float dtS )
   if( input.isDown( sgdi::Input::InputType::RIGHT_KEY )
       || input.isDown( sgdi::Input::InputType::D_KEY ) )
   {
-    d_actor->sprite()->move( DIST, 0 );
+    d_actor->move( DIST, 0 );
   }
   if( input.isDown( sgdi::Input::InputType::LEFT_KEY )
       || input.isDown( sgdi::Input::InputType::A_KEY ) )
   {
-    d_actor->sprite()->move( -DIST, 0 );
+    d_actor->move( -DIST, 0 );
   }
   if( input.isDown( sgdi::Input::InputType::UP_KEY )
       || input.isDown( sgdi::Input::InputType::W_KEY ) )
   {
-    d_actor->sprite()->move( 0, -DIST );
+    d_actor->move( 0, -DIST );
   }
   if( input.isDown( sgdi::Input::InputType::DOWN_KEY )
       || input.isDown( sgdi::Input::InputType::S_KEY ) )
   {
-    d_actor->sprite()->move( 0, DIST );
+    d_actor->move( 0, DIST );
   }
 }
 

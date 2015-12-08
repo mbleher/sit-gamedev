@@ -32,11 +32,11 @@ sgds::Actor* ActorFactory::createActor( std::string texture,
   {
     sgdr::RenderableSprite* sprite =
       new sgdr::RenderableSprite( scene.renderer()->getTexture( texture ) );
+    sprite->setPosition( initX, initY );
     sgds::Actor* actor = new sgds::Actor( sprite, type );
     scene.renderer()->addSprite( sprite );
     mgc::PlayerController* playerController = new mgc::PlayerController();
     playerController->setActor( actor );
-    sprite->setPosition( initX, initY );
     scene.addTickable( playerController );
     scene.addTickable( actor );
     d_actors.push( actor );

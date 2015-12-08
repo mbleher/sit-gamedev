@@ -1,6 +1,7 @@
 // nxn_scene_graph.cpp
 
 #include "nxn_scene_graph.h"
+#include <iostream>
 
 namespace StevensDev
 {
@@ -136,6 +137,14 @@ void NxNSceneGraph::preTick()
 
 void NxNSceneGraph::tick( float dtS )
 {
+  if ( d_colliders.length() > 1 )
+  {
+    sgdc::DynamicArray<ICollider*> array = find( d_colliders[0] );
+    if ( array.length() > 0 )
+    {
+      std::cout << "Collision!" << std::endl;
+    }
+  }
 }
 
 void NxNSceneGraph::postTick()

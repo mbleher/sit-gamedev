@@ -70,5 +70,10 @@ const bool CollidableBounds::doesCollide( const RectangleBounds& candidate ) con
   return d_bounds.doesCollide( candidate );
 }
 
+void CollidableBounds::move( float x, float y )
+{
+  d_bounds.move( x, y );
+}
+
 } // End sgds namespace
 } // End StevensDev namespace
