@@ -24,6 +24,7 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/src/engine/scene
   ${PROJECT_SOURCE_DIR}/src/engine/input
   ${PROJECT_SOURCE_DIR}/src/engine/rendering
+  ${PROJECT_SOURCE_DIR}/src/engine/events
   ${PROJECT_SOURCE_DIR}/src/engine/factories
   ${PROJECT_SOURCE_DIR}/src/game/controllers
   ${PROJECT_SOURCE_DIR}/external/googletest/googletest
