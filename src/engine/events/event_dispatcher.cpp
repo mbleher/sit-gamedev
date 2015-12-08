@@ -21,21 +21,24 @@ EventDispatcher::~EventDispatcher()
 {
 }
 
-void EventDispatcher::add( std::function<void( const IEvent& )>* listener )
+void EventDispatcher::add( Listener* listener )
 {
   d_addedListeners.push( listener );
 }
 
-void EventDispatcher::remove( std::function<void( const IEvent& )>* listener )
+void EventDispatcher::remove( Listener* listener )
 {
   d_removedListeners.push( listener );
 }
 
-void EventDispatcher::dispatch( const IEvent& event )
+void EventDispatcher::dispatch( const std::string& id, const IEvent& event )
 {
   for( unsigned int i = 0; i < d_listeners.length(); ++i )
   {
-    ( *d_listeners[i] )( event );
+    if( id == d_listeners[i]->first )
+    {
+      ( *( d_listeners[i]->second ) )( event );
+    }
   }
 }
 

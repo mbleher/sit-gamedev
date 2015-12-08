@@ -8,20 +8,26 @@
 #include "ievent.h"
 #include "dynamic_array.h"
 #include <functional>
+#include <utility>
+#include <string>
 
 namespace StevensDev
 {
 namespace sgde
 {
+
+typedef std::pair<const std::string&,
+		  std::function<void( const IEvent& )>*> Listener;
+
 class EventDispatcher : public sgds::ITickable
 {
   private:
   // PRIVATE MEMBERS
-  sgdc::DynamicArray<std::function<void( const IEvent& )>*> d_listeners;
+  sgdc::DynamicArray<Listener*> d_listeners;
     // Listeners currently bound
-  sgdc::DynamicArray<std::function<void( const IEvent& )>*> d_addedListeners;
+  sgdc::DynamicArray<Listener*> d_addedListeners;
     // Listeners to be added during post-tick
-  sgdc::DynamicArray<std::function<void( const IEvent& )>*> d_removedListeners;
+  sgdc::DynamicArray<Listener*> d_removedListeners;
     // Listeners to be removed during post-tick
   public:
   // CONSTRUCTORS
@@ -34,11 +40,11 @@ class EventDispatcher : public sgds::ITickable
   ~EventDispatcher();
 
   // MEMBER FUNCTIONS
-  void add( std::function<void( const IEvent& )>* listener );
+  void add( Listener* listener );
     // Adds a listener
-  void remove( std::function<void( const IEvent& )>* listener );
+  void remove( Listener* listener );
     // Removes a listener
-  void dispatch( const IEvent& );
+  void dispatch( const std::string& id, const IEvent& event );
     // Dispatchs an event to all listeners
 
   // INHERITED FUNCTIONS
