@@ -15,7 +15,10 @@ class IEvent
 protected:
   std::string d_type;
 public:
-  virtual const std::string type() const = 0;
+  IEvent();
+  IEvent( const std::string& type );
+  ~IEvent();
+  virtual const std::string& type() const;
 };
 } // End sgde namespace
 } // End StevensDev namespace
