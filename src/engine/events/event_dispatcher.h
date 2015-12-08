@@ -16,8 +16,8 @@ namespace StevensDev
 namespace sgde
 {
 
-typedef std::pair<const std::string&,
-		  std::function<void( const IEvent& )>*> Listener;
+typedef std::function<void( const IEvent& )>* Func;
+typedef std::pair<std::string*, Func> Listener;
 
 class EventDispatcher : public sgds::ITickable
 {
@@ -40,11 +40,11 @@ class EventDispatcher : public sgds::ITickable
   ~EventDispatcher();
 
   // MEMBER FUNCTIONS
-  void add( Listener* listener );
+  void add( const std::string& key, Func fn );
     // Adds a listener
   void remove( Listener* listener );
     // Removes a listener
-  void dispatch( const std::string& id, const IEvent& event );
+  void dispatch( const IEvent& event );
     // Dispatchs an event to all listeners
 
   // INHERITED FUNCTIONS

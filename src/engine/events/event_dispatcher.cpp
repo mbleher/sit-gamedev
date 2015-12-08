@@ -1,6 +1,7 @@
 // event_dispatcher.cpp
 
 #include "event_dispatcher.h"
+#include <iostream>
 
 namespace StevensDev
 {
@@ -21,9 +22,11 @@ EventDispatcher::~EventDispatcher()
 {
 }
 
-void EventDispatcher::add( Listener* listener )
+void EventDispatcher::add( const std::string& key, Func fn )
 {
-  d_addedListeners.push( listener );
+  std::string* listenerKey = new std::string( key );
+
+  d_addedListeners.push( new Listener( listenerKey, fn ) );
 }
 
 void EventDispatcher::remove( Listener* listener )
@@ -31,11 +34,11 @@ void EventDispatcher::remove( Listener* listener )
   d_removedListeners.push( listener );
 }
 
-void EventDispatcher::dispatch( const std::string& id, const IEvent& event )
+void EventDispatcher::dispatch( const IEvent& event )
 {
   for( unsigned int i = 0; i < d_listeners.length(); ++i )
   {
-    if( id == d_listeners[i]->first )
+    if( event.type() == *d_listeners[i]->first )
     {
       ( *( d_listeners[i]->second ) )( event );
     }
