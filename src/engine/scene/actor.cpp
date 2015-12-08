@@ -62,6 +62,21 @@ void Actor::move( float x, float y )
   else
   {
     d_sprite->move( x, y );
+    
+    if( d_cBounds->bounds().x() < 0 )
+    {
+      move( scene.graph()->mapWidth(), 0 );
+    }
+    else if( d_cBounds->bounds().x() > scene.graph()->mapWidth() )
+    {
+      move( - scene.graph()->mapWidth(), 0 );
+    }
+    /*
+    if( d_cBounds->bounds.y() < 40 )
+    {
+      move( 0,  );
+    }
+    */
   }
 }
 

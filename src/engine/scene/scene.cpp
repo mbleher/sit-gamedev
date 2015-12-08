@@ -123,6 +123,8 @@ void Scene::setup()
   d_renderer->addSprite( map );
   float w = map->width();
   float h = map->height();
+  d_graph->setMapWidth( w );
+  d_graph->setMapHeight( h );
   sgds::Actor* link = sgdf::ActorFactory::createActor( "link",
 						       sgds::Actor::PLAYER,
 						       w / 2 - 12,

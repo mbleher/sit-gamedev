@@ -34,6 +34,26 @@ NxNSceneGraph::~NxNSceneGraph()
   }
 }
 
+float NxNSceneGraph::mapWidth() const
+{
+  return d_mapWidth;
+}
+
+float NxNSceneGraph::mapHeight() const
+{
+  return d_mapHeight;
+}
+
+void NxNSceneGraph::setMapWidth( float width )
+{
+  d_mapWidth = width;
+}
+
+void NxNSceneGraph::setMapHeight( float height )
+{
+  d_mapHeight = height;
+}
+
 
 // MEMBER FUNCTIONS
 

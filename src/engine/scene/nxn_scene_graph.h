@@ -20,6 +20,9 @@ class NxNSceneGraph : public ITickable
     // Dimensions of the scene
   float d_divisions;
     // Number of divisions for the grid
+  float d_mapWidth;
+  float d_mapHeight;
+
   sgdc::DynamicArray<ICollider*> d_colliders;
     // Array of colliders to compare
   sgdc::DynamicArray<ICollider*> d_addedColliders;
@@ -38,6 +41,12 @@ class NxNSceneGraph : public ITickable
 
   // DESTRUCTOR
   ~NxNSceneGraph();
+
+  float mapWidth() const;
+  float mapHeight() const;
+
+  void setMapWidth( float width );
+  void setMapHeight( float height );
 
   // MEMBER FUNCTIONS
   void addCollider( ICollider* collider );
