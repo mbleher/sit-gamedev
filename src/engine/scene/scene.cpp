@@ -119,6 +119,9 @@ void Scene::setup()
   d_renderer->loadTexture( "map", "../textures/dungeonmap_big.png" );
   d_renderer->loadTexture( "linkns", "../textures/link_nsw.png" );
   d_renderer->loadTexture( "sword", "../textures/master_sword_mini.png" );
+  d_renderer->loadTexture( "soldier", "../textures/soldier.png" );
+  d_renderer->loadTexture( "ghost", "../textures/ghost.png" );
+  
 
   sgdr::RenderableSprite* map =
     new sgdr::RenderableSprite( d_renderer->getTexture( "map" ) );
@@ -132,12 +135,29 @@ void Scene::setup()
 						       sgds::Actor::PLAYER,
 						       w / 2 - 12,
 						       h - 60 );
+  d_graph->addCollider( link->cBounds() );
   sgds::Actor* sword = sgdf::ActorFactory::createActor( "sword",
 							sgds::Actor::ITEM,
 							245,
 							40 );
-  d_graph->addCollider( link->cBounds() );
   d_graph->addCollider( sword->cBounds() );
+  sgds::Actor* soldier = sgdf::ActorFactory::createActor( "soldier",
+							  sgds::Actor::SOLDIER,
+							  250,
+							  150 );
+  d_graph->addCollider( soldier->cBounds() );
+  sgds::Actor* ghost1 = sgdf::ActorFactory::createActor( "ghost",
+							 sgds::Actor::GHOST,
+							 78,
+							 255 );
+  d_graph->addCollider( ghost1->cBounds() );
+  sgds::Actor* ghost2 = sgdf::ActorFactory::createActor( "ghost",
+							 sgds::Actor::GHOST,
+							 428,
+							 255 );
+  d_graph->addCollider( ghost2->cBounds() );
+  
+  
 
   // Walls setup
   d_graph->addWall( 0, 0, w, 30 );
