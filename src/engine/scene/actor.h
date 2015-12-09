@@ -29,8 +29,11 @@ private:
   CollidableBounds* d_cBounds;
 
   std::function<void( const sgde::IEvent& event )> d_onItem;
+  std::function<void( const sgde::IEvent& event )> d_onPlayerHit;
+  std::function<void( const sgde::IEvent& event )> d_onEnemyHit;
 
   unsigned short d_hp;
+  bool d_hasWeapon;
 public:
   Actor();
   Actor( const Actor& copy );
@@ -42,6 +45,9 @@ public:
   void move( float x, float y );
 
   void onItem( const sgde::IEvent& event );
+  void onPlayerHit( const sgde::IEvent& event );
+  void onEnemyHit( const sgde::IEvent& event );
+
 
   virtual void preTick();
   virtual void tick( float dtS );
