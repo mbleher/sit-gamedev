@@ -90,7 +90,7 @@ void RectangleBounds::setPosition( float x, float y )
   d_y = y;
 }
 
-void RectangleBounds::move(float x, float y )
+void RectangleBounds::move( float x, float y )
 {
   d_x += x;
   d_y += y;

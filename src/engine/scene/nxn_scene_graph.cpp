@@ -182,6 +182,7 @@ void NxNSceneGraph::tick( float dtS )
     sgdc::DynamicArray<ICollider*> colliders = find( d_colliders[0] );
     for( unsigned int i = 0; i < colliders.length(); ++i )
     {
+      std::cout << "hit" << std::endl;
       if( colliders[i]->flags() == 3 )
       {
 	sgde::IEvent event( "hit" );
@@ -199,7 +200,7 @@ void NxNSceneGraph::postTick()
   }
   d_addedColliders.clear();
 
-  for( unsigned int i = 0; i < d_addedColliders.length(); ++i )
+  for( unsigned int i = 0; i < d_removedColliders.length(); ++i )
   {
     bool found = false;
 
